@@ -12,6 +12,7 @@
  */
 package assignment4;
 
+import java.lang.reflect.Constructor;
 import java.util.List;
 
 /* see the PDF for descriptions of the methods and fields in this class
@@ -73,6 +74,37 @@ public abstract class Critter {
 	 * @throws InvalidCritterException
 	 */
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
+		//we can probably reduce this code by putting in all the critters into a list and just going through the list
+		//but we'll keep this for now and change it later when we add more critters.
+		if (!critter_class_name.equals("assignment4.Craig"))
+			throw new InvalidCritterException(critter_class_name);
+		
+		try {
+			Class<?> createCritter = Class.forName(critter_class_name);
+			Constructor<?> createConstructor = createCritter.getConstructor();
+			
+			Critter newCritter = (Critter) createConstructor.newInstance();
+			
+			newCritter.x_coord = Critter.getRandomInt(Params.world_width);
+			newCritter.y_coord = Critter.getRandomInt(Params.world_height);
+			newCritter.energy = Params.start_energy;
+			
+			System.out.println(createCritter);
+			System.out.println(createConstructor);
+			System.out.println(newCritter);
+		} 
+		
+		//catch for ClassNotFound
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			System.out.println("Class not found");
+		}
+		
+		//catch the other expections
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		
 	}
 	
 	/**

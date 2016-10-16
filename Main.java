@@ -70,6 +70,13 @@ public class Main {
         /* Write your code below. */
         
         System.out.println("GLHF");
+        try {
+			Critter.makeCritter("assignment4.Craig");
+		} catch (InvalidCritterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
         
         /* Write your code above */
         System.out.flush();
