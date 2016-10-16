@@ -89,9 +89,7 @@ public abstract class Critter {
 			newCritter.y_coord = Critter.getRandomInt(Params.world_height);
 			newCritter.energy = Params.start_energy;
 			
-			System.out.println(createCritter);
-			System.out.println(createConstructor);
-			System.out.println(newCritter);
+			population.add(newCritter);
 		} 
 		
 		//catch for ClassNotFound
@@ -100,7 +98,7 @@ public abstract class Critter {
 			System.out.println("Class not found");
 		}
 		
-		//catch the other expections
+		//catch the other Exceptions
 		catch (Exception e){
 			e.printStackTrace();
 		}
@@ -202,6 +200,21 @@ public abstract class Critter {
 	}
 	
 	public static void worldTimeStep() {
+		for(Critter critter: population){
+			critter.doTimeStep();
+		}
+		
+		//deduct the rest energy from all criters
+		for(Critter critter: population){
+			critter.energy -= Params.rest_energy_cost;
+		}
+		
+		//remove dead critters from population
+		for(Critter critter: population){
+			if (critter.energy <= 0)
+				population.remove(critter);
+		}
+		
 	}
 	
 	public static void displayWorld() {}

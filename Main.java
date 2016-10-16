@@ -77,6 +77,7 @@ public class Main {
 			e.printStackTrace();
 		}
         
+        System.out.println("DONE");
         
         /* Write your code above */
         System.out.flush();
