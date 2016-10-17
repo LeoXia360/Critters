@@ -272,6 +272,16 @@ public abstract class Critter {
 				population.remove(critter);
 		}
 		
+		//generate more alage on the board
+		for(int i = 0; i < Params.refresh_algae_count; i ++){
+	        try {
+				Critter.makeCritter("assignment4.Alage");
+			} catch (InvalidCritterException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	/**
 	 * Displays all the critters in the world
