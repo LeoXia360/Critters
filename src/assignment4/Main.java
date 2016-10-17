@@ -76,7 +76,21 @@ public class Main {
 
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
+<<<<<<< HEAD
         
+=======
+        try {
+        	for(int i = 0; i < 25; i++){
+        		Critter.makeCritter("Craig");
+        	}
+        	for(int j = 0; j < 100; j++){
+        		Critter.makeCritter("Algae");
+        	}
+		} catch (InvalidCritterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+>>>>>>> 179c8fbe90758c5aa43c23d1bfd49dc11e4fe2e9
         System.out.println("GLHF");
         
         //Controller Component
@@ -164,10 +178,17 @@ public class Main {
         			}
         		}
         		break;
+<<<<<<< HEAD
 	
+=======
+        		
+>>>>>>> 179c8fbe90758c5aa43c23d1bfd49dc11e4fe2e9
         	case "stats":
+        		if (reponse.length < 2){
+        			System.out.println("invalid command:" + input);
+        			break;
+        		}
         		try {
-        			Critter.makeCritter("Craig");
         			Class.forName("assignment4." + reponse[1]);
         			List<Critter> c = new ArrayList<Critter>();
         			c = Critter.getInstances(reponse[1]);
@@ -177,7 +198,10 @@ public class Main {
     				throw new InvalidCritterException(reponse[1]);
         		}
         		
+<<<<<<< HEAD
 
+=======
+>>>>>>> 179c8fbe90758c5aa43c23d1bfd49dc11e4fe2e9
         }
         
         /* Write your code above */

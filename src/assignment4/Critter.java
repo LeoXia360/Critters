@@ -182,6 +182,10 @@ public abstract class Critter {
 			
 			newCritter.x_coord = Critter.getRandomInt(Params.world_width);
 			newCritter.y_coord = Critter.getRandomInt(Params.world_height);
+<<<<<<< HEAD
+=======
+			//System.out.println(newCritter.x_coord + ", " + newCritter.y_coord);
+>>>>>>> 179c8fbe90758c5aa43c23d1bfd49dc11e4fe2e9
 			newCritter.energy = Params.start_energy;
 			System.out.println(newCritter.x_coord + " " + newCritter.y_coord);
 			
@@ -225,7 +229,6 @@ public abstract class Critter {
 			//do nothing
 		}
 		// add all critters from population
-		System.out.println(population);
 		for(Critter critter: population){
 			if (c.equals(critter.toString())){
 				result.add(critter);
