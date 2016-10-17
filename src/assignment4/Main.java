@@ -128,6 +128,10 @@ public class Main {
         	case "make":
         		
         	case "stats":
+        		if (reponse.length > 2){
+        			System.out.println("invalid command:" + input);
+        			break;
+        		}
         		try {
         			Critter.makeCritter("Craig");
         			Class.forName("assignment4." + reponse[1]);
