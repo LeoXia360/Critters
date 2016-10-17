@@ -68,14 +68,9 @@ public class Main {
 
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
-        try {
-			Critter.makeCritter("Craig");
-		} catch (InvalidCritterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        Critter.displayWorld();
+
         System.out.println("GLHF");
+        Critter.displayWorld();
         
         try {
 			Critter.makeCritter("Craig");
@@ -84,47 +79,47 @@ public class Main {
 			e.printStackTrace();
 		}
         
+        Critter.displayWorld();
         
         //Controller Component
-        boolean quit = false;
-        
-        while(!quit){
-        	System.out.print("critter>");
-        	String[] reponse = kb.nextLine().split(" ");
-        	System.out.println(reponse.length);
-        	
-        	switch(reponse[0]){
-        	case "quit":
-        		quit = true;
-        		break;
-        	
-        	case "show":
-        		Critter.displayWorld();
-        		break;
-        	
-        	case "step":
-        		if (reponse.length < 1){
-        			int amountOfSteps = Integer.parseInt(reponse[1]);
-        			for (int i = 0; i < amountOfSteps; i++){
-        				Critter.worldTimeStep();
-        			}
-        			break;
-        		}
-        		Critter.worldTimeStep();
-        		break;
-        		
-        	case "seed":
-        		long num = Integer.parseInt(reponse[1]);
-        		Critter.setSeed(num);
-        		break;
-        	
-        	case "make":
-        		
-        }
+//        boolean quit = false;
+//        
+//        while(!quit){
+//        	System.out.print("critter>");
+//        	String[] reponse = kb.nextLine().split(" ");
+//        	System.out.println(reponse.length);
+//        	
+//        	switch(reponse[0]){
+//        	case "quit":
+//        		quit = true;
+//        		break;
+//        	
+//        	case "show":
+//        		Critter.displayWorld();
+//        		break;
+//        	
+//        	case "step":
+//        		if (reponse.length < 1){
+//        			int amountOfSteps = Integer.parseInt(reponse[1]);
+//        			for (int i = 0; i < amountOfSteps; i++){
+//        				Critter.worldTimeStep();
+//        			}
+//        			break;
+//        		}
+//        		Critter.worldTimeStep();
+//        		break;
+//        		
+//        	case "seed":
+//        		long num = Integer.parseInt(reponse[1]);
+//        		Critter.setSeed(num);
+//        		break;
+//        	
+//        	case "make":
+//        		
+//        }
         
         /* Write your code above */
         System.out.flush();
         System.out.println("Done");
-        }
     }
 }

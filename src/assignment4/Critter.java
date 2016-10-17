@@ -331,55 +331,84 @@ public abstract class Critter {
 	 */
 	
 	public static void displayWorld() {
-		char[][] world = new char[Params.world_height + 2][Params.world_width + 2];
-		boolean printed = false;
+		String[][] world = new String[Params.world_height + 2][Params.world_width + 2];
 		for (int row = 0; row < Params.world_height + 2; row++){
-			for (int col = 0; col < Params.world_width + 2; col++){
-				//if a corner
-				if((row == 0 && col == 0) ||
-				   (row == 0 && col == Params.world_width + 1) ||
-				   (col == 0 && row == Params.world_height + 1) ||
-				   (col == Params.world_width + 1 && row == Params.world_height + 1)){
-					world[row][col] = '+';
-					System.out.print(world[row][col]);
-					printed = true;
-				}
-				
-				//print top or bottom border
-				if (!printed && ((row == 0) || (row == Params.world_height + 1))){
-					world[row][col] = '-';
-					System.out.print(world[row][col]);
-					printed = true;
-				}
-				//print left or right border
-				if(!printed && ((col == 0) || (col == Params.world_width + 1))){
-					world[row][col] = '|';
-					System.out.print(world[row][col]);
-					col++;
-					printed = true;
-				}
-				
-				//cycle through the critters to see if one needs to be displayed
-				for(Critter critter: population){
-					int x = critter.x_coord + 1;
-					int y = critter.y_coord + 1;
-					
-					if (x == row && y == col){
-						//display the critter
-						System.out.print(critter);
-						printed = true;
+			for (int column = 0; column < Params.world_width + 2; column++){
+				boolean critterExits = false;
+				for (Critter critter: population){
+					if (critter.x_coord + 1 == row && column == critter.y_coord + 1){
+						world[critter.x_coord + 1][critter.y_coord + 1] = critter.toString();
+						critterExits = true;
 					}
 				}
-				
-				if(!printed){
-					world[row][col] = ' ';
-					//System.out.print(world[row][col]);
-					System.out.print(world[row][col]);
+				if (!critterExits){
+					if ((row == 0 || row == Params.world_height + 1) && (column == 0 || column == Params.world_width + 1)){
+						world[row][column] = "+";
+					}
+					else if (row == 0 || row == Params.world_height + 1){
+						world[row][column] = "-";
+					}
+					else if (column == 0 || column == Params.world_width + 1){
+						world[row][column] = "|";
+					}
+					else{
+						world[row][column] = " ";
+					}
 				}
-				
-				printed = false;
+				System.out.print(world[row][column]);
 			}
 			System.out.println();
 		}
+		
+//		char[][] world = new char[Params.world_height + 2][Params.world_width + 2];
+//		boolean printed = false;
+//		for (int row = 0; row < Params.world_height + 2; row++){
+//			for (int col = 0; col < Params.world_width + 2; col++){
+//				//if a corner
+//				if((row == 0 && col == 0) ||
+//				   (row == 0 && col == Params.world_width + 1) ||
+//				   (col == 0 && row == Params.world_height + 1) ||
+//				   (col == Params.world_width + 1 && row == Params.world_height + 1)){
+//					world[row][col] = '+';
+//					System.out.print(world[row][col]);
+//					printed = true;
+//				}
+//				
+//				//print top or bottom border
+//				if (!printed && ((row == 0) || (row == Params.world_height + 1))){
+//					world[row][col] = '-';
+//					System.out.print(world[row][col]);
+//					printed = true;
+//				}
+//				//print left or right border
+//				if(!printed && ((col == 0) || (col == Params.world_width + 1))){
+//					world[row][col] = '|';
+//					System.out.print(world[row][col]);
+//					col++;
+//					printed = true;
+//				}
+//				
+//				//cycle through the critters to see if one needs to be displayed
+//				for(Critter critter: population){
+//					int x = critter.x_coord + 1;
+//					int y = critter.y_coord + 1;
+//					
+//					if (x == row && y == col){
+//						//display the critter
+//						System.out.print(critter);
+//						printed = true;
+//					}
+//				}
+//				
+//				if(!printed){
+//					world[row][col] = ' ';
+//					//System.out.print(world[row][col]);
+//					System.out.print(world[row][col]);
+//				}
+//				
+//				printed = false;
+//			}
+//			System.out.println();
+//		}
 	}
 }
