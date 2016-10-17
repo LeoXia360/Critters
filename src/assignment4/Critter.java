@@ -182,6 +182,7 @@ public abstract class Critter {
 			
 			newCritter.x_coord = Critter.getRandomInt(Params.world_width);
 			newCritter.y_coord = Critter.getRandomInt(Params.world_height);
+			System.out.println(newCritter.x_coord + ", " + newCritter.y_coord);
 			newCritter.energy = Params.start_energy;
 			
 			population.add(newCritter);
@@ -318,7 +319,7 @@ public abstract class Critter {
 		//generate more alage on the board
 		for(int i = 0; i < Params.refresh_algae_count; i ++){
 	        try {
-				Critter.makeCritter("assignment4.Alage");
+				Critter.makeCritter("assignment4.Algae");
 			} catch (InvalidCritterException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
