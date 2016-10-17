@@ -182,12 +182,10 @@ public abstract class Critter {
 			
 			newCritter.x_coord = Critter.getRandomInt(Params.world_width);
 			newCritter.y_coord = Critter.getRandomInt(Params.world_height);
-<<<<<<< HEAD
-=======
+
 			//System.out.println(newCritter.x_coord + ", " + newCritter.y_coord);
->>>>>>> 179c8fbe90758c5aa43c23d1bfd49dc11e4fe2e9
 			newCritter.energy = Params.start_energy;
-			System.out.println(newCritter.x_coord + " " + newCritter.y_coord);
+			//System.out.println(newCritter.x_coord + " " + newCritter.y_coord);
 			
 			population.add(newCritter);
 		} 
