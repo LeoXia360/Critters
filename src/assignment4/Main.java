@@ -129,11 +129,10 @@ public class Main {
         		
         	case "stats":
         		try {
+        			Critter.makeCritter("Craig");
         			Class.forName("assignment4." + reponse[1]);
         			List<Critter> c = new ArrayList<Critter>();
-        			System.out.println(reponse[1]);
         			c = Critter.getInstances(reponse[1]);
-        			System.out.println(c);
         			Critter.runStats(c);
         		}
         		catch (ClassNotFoundException e){

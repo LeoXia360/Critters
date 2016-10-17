@@ -212,6 +212,32 @@ public abstract class Critter {
 	 */
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
+		String c = null;
+		try {
+			Class<?> createCritter = Class.forName("assignment4." + critter_class_name);
+			Constructor<?> createConstructor = createCritter.getConstructor();
+			Critter newCritter = (Critter) createConstructor.newInstance();
+			c = newCritter.toString();
+
+		} catch (ClassNotFoundException e) {
+			throw new InvalidCritterException(critter_class_name);
+		} catch (Exception e){
+			//do nothing
+		}
+		// add all critters from population
+		System.out.println(population);
+		for(Critter critter: population){
+			if (c.equals(critter.toString())){
+				result.add(critter);
+			}
+			
+		}
+		// add all critters from babies
+		for(Critter critter: babies){
+			if(c.equals(critter.toString())){
+				result.add(critter);
+			}
+		}
 	
 		return result;
 	}
