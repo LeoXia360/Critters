@@ -50,6 +50,13 @@ public abstract class Critter {
 	private int x_coord;
 	private int y_coord;
 	
+	/**
+	 * Method used for both run and walk
+	 * Switches direction for performing the appropriate coordinate change
+	 * @param direction
+	 * @param num_steps
+	 * @param energy_cost
+	 */
 	private void move(int direction, int num_steps, int energy_cost){
 		switch (direction){
 		case 0: this.x_coord += num_steps;
@@ -77,16 +84,29 @@ public abstract class Critter {
 
 	}
 	
-	
+	/**
+	 * Determines how a critter walks using the move method
+	 * @param direction
+	 */
 	protected final void walk(int direction) {
 		move(direction, 1, Params.walk_energy_cost);
 		
 	}
 	
+	/**
+	 * Determines how a critter runs using the move method
+	 * @param direction
+	 */
 	protected final void run(int direction) {
 		move(direction, 2, Params.run_energy_cost);
 	}
 	
+	/**
+	 * Check to see if critter can reproduce
+	 * Offspring takes half energy and parent loses half energy
+	 * @param offspring
+	 * @param direction
+	 */
 	protected final void reproduce(Critter offspring, int direction) {
 		if (this.getEnergy() < Params.min_reproduce_energy){
 			return;
@@ -241,7 +261,7 @@ public abstract class Critter {
 			critter.doTimeStep();
 		}
 		
-		//deduct the rest energy from all criters
+		//deduct the rest energy from all critters
 		for(Critter critter: population){
 			critter.energy -= Params.rest_energy_cost;
 		}
