@@ -302,8 +302,8 @@ public abstract class Critter {
 				//cycle through the critters to see if one needs to be displayed
 				for(Critter critter: population){
 					if (critter.x_coord == row && critter.y_coord == col){
-						//display the critter, how do i know the type of critter
-						critter.
+						//display the critter
+						System.out.print(critter);
 					}
 
 				}
