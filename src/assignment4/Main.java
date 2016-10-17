@@ -11,8 +11,14 @@
  * Fall 2016
  */
 package assignment4; // cannot be in default package
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import javax.xml.ws.Response;
+
 import java.io.*;
+import java.lang.reflect.Constructor;
 
 
 /*
@@ -39,8 +45,10 @@ public class Main {
      * Main method.
      * @param args args can be empty.  If not empty, provide two parameters -- the first is a file name, 
      * and the second is test (for test output, where all output to be directed to a String), or nothing.
+     * @throws InvalidCritterException 
+     * @throws ClassNotFoundException 
      */
-    public static void main(String[] args) { 
+    public static void main(String[] args) throws ClassNotFoundException, InvalidCritterException { 
         if (args.length != 0) {
             try {
                 inputFile = args[0];
@@ -68,7 +76,13 @@ public class Main {
 
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
-
+        try {
+			Critter.makeCritter("Craig");
+		} catch (InvalidCritterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        Critter.displayWorld();
         System.out.println("GLHF");
         
         //Controller Component
@@ -133,6 +147,7 @@ public class Main {
         		break;
         	
         	case "make":
+<<<<<<< HEAD
         		if (reponse.length < 3){
         			System.out.println("invalid command: " + input);
         		}
@@ -157,10 +172,26 @@ public class Main {
         		}
         		break;
         	}
+=======
+        		
+        	case "stats":
+        		try {
+        			Critter.makeCritter("Craig");
+        			Class.forName("assignment4." + reponse[1]);
+        			List<Critter> c = new ArrayList<Critter>();
+        			c = Critter.getInstances(reponse[1]);
+        			Critter.runStats(c);
+        		}
+        		catch (ClassNotFoundException e){
+    				throw new InvalidCritterException(reponse[1]);
+        		}
+        		
+>>>>>>> e94eb8df9d80abf01cc7c33ef3f42a8c75066b1a
         }
         
         /* Write your code above */
         System.out.flush();
         System.out.println("Done");
+        }
     }
 }

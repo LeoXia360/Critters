@@ -182,6 +182,7 @@ public abstract class Critter {
 			
 			newCritter.x_coord = Critter.getRandomInt(Params.world_width);
 			newCritter.y_coord = Critter.getRandomInt(Params.world_height);
+			System.out.println(newCritter.x_coord + ", " + newCritter.y_coord);
 			newCritter.energy = Params.start_energy;
 			
 			population.add(newCritter);
@@ -211,6 +212,32 @@ public abstract class Critter {
 	 */
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
+		String c = null;
+		try {
+			Class<?> createCritter = Class.forName("assignment4." + critter_class_name);
+			Constructor<?> createConstructor = createCritter.getConstructor();
+			Critter newCritter = (Critter) createConstructor.newInstance();
+			c = newCritter.toString();
+
+		} catch (ClassNotFoundException e) {
+			throw new InvalidCritterException(critter_class_name);
+		} catch (Exception e){
+			//do nothing
+		}
+		// add all critters from population
+		System.out.println(population);
+		for(Critter critter: population){
+			if (c.equals(critter.toString())){
+				result.add(critter);
+			}
+			
+		}
+		// add all critters from babies
+		for(Critter critter: babies){
+			if(c.equals(critter.toString())){
+				result.add(critter);
+			}
+		}
 	
 		return result;
 	}
@@ -318,7 +345,11 @@ public abstract class Critter {
 		//generate more alage on the board
 		for(int i = 0; i < Params.refresh_algae_count; i ++){
 	        try {
+<<<<<<< HEAD
 				Critter.makeCritter("Algae");
+=======
+				Critter.makeCritter("assignment4.Algae");
+>>>>>>> e94eb8df9d80abf01cc7c33ef3f42a8c75066b1a
 			} catch (InvalidCritterException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
