@@ -114,18 +114,65 @@ public class Main {
         	case "step":
         		if (reponse.length > 2){
         			System.out.println("invalid command: " + input);
-        			break;
         		}
-
-        		Critter.worldTimeStep();
+        		else if (reponse.length == 2){
+        			try{
+        				int amount = Integer.parseInt(reponse[1]);
+        				for (int i = 0; i < amount; i++){
+        					Critter.worldTimeStep();
+        				}
+        			}
+        			catch (NumberFormatException e){
+        				System.out.println("error processing: " + input);
+        			}
+        		}
+        		else{
+        			Critter.worldTimeStep();
+        		}
         		break;
         		
         	case "seed":
-        		long num = Integer.parseInt(reponse[1]);
-        		Critter.setSeed(num);
+        		if (reponse.length != 2){
+        			System.out.println("invalid command: " + input);
+        		}
+        		else{
+        			try{
+        				long num = Integer.parseInt(reponse[1]);
+                		Critter.setSeed(num);
+        			}
+        			catch(NumberFormatException e){
+        				System.out.println("error processing: " + input);
+        			}
+        		}
         		break;
         	
         	case "make":
+<<<<<<< HEAD
+        		if (reponse.length < 3){
+        			System.out.println("invalid command: " + input);
+        		}
+        		else{
+        			try{
+        				int amount = 1;
+        				if (reponse.length == 3){
+        					amount = Integer.parseInt(reponse[2]);
+        				}
+        				for (int i = 0; i < amount; i++){
+        					try{
+        						Critter.makeCritter(reponse[1]);
+        					}
+        					catch (Exception e){
+        						
+        					}
+        				}
+        			}
+        			catch (NumberFormatException e){
+        				System.out.println("error processing: " + input);
+        			}
+        		}
+        		break;
+        	}
+=======
         		
         	case "stats":
         		if (reponse.length > 2){
@@ -143,6 +190,7 @@ public class Main {
     				throw new InvalidCritterException(reponse[1]);
         		}
         		
+>>>>>>> e94eb8df9d80abf01cc7c33ef3f42a8c75066b1a
         }
         
         /* Write your code above */
