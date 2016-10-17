@@ -77,7 +77,12 @@ public class Main {
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
         try {
-			Critter.makeCritter("Craig");
+        	for(int i = 0; i < 25; i++){
+        		Critter.makeCritter("Craig");
+        	}
+        	for(int j = 0; j < 100; j++){
+        		Critter.makeCritter("Algae");
+        	}
 		} catch (InvalidCritterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -147,7 +152,6 @@ public class Main {
         		break;
         	
         	case "make":
-<<<<<<< HEAD
         		if (reponse.length < 3){
         			System.out.println("invalid command: " + input);
         		}
@@ -171,8 +175,6 @@ public class Main {
         			}
         		}
         		break;
-        	}
-=======
         		
         	case "stats":
         		if (reponse.length > 2){
@@ -180,7 +182,6 @@ public class Main {
         			break;
         		}
         		try {
-        			Critter.makeCritter("Craig");
         			Class.forName("assignment4." + reponse[1]);
         			List<Critter> c = new ArrayList<Critter>();
         			c = Critter.getInstances(reponse[1]);
@@ -190,7 +191,6 @@ public class Main {
     				throw new InvalidCritterException(reponse[1]);
         		}
         		
->>>>>>> e94eb8df9d80abf01cc7c33ef3f42a8c75066b1a
         }
         
         /* Write your code above */

@@ -225,7 +225,6 @@ public abstract class Critter {
 			//do nothing
 		}
 		// add all critters from population
-		System.out.println(population);
 		for(Critter critter: population){
 			if (c.equals(critter.toString())){
 				result.add(critter);
