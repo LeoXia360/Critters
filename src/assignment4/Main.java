@@ -87,7 +87,6 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        Critter.displayWorld();
         System.out.println("GLHF");
         
         //Controller Component
@@ -177,7 +176,7 @@ public class Main {
         		break;
         		
         	case "stats":
-        		if (reponse.length > 2){
+        		if (reponse.length < 2){
         			System.out.println("invalid command:" + input);
         			break;
         		}
