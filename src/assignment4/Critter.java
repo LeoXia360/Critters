@@ -286,7 +286,9 @@ public abstract class Critter {
 	/**
 	 * Displays all the critters in the world
 	 */
+	
 	public static void displayWorld() {
+		char[][] world = new char[Params.world_height][Params.world_width];
 		for (int row = -1; row <= Params.world_height; row++){
 			for (int col = -1; col <= Params.world_width; col++){
 				//if a corner
@@ -294,18 +296,21 @@ public abstract class Critter {
 				   (row == -1 && col == Params.world_width) ||
 				   (col == -1 && row == Params.world_height) ||
 				   (col == Params.world_width && row == Params.world_height)){
-					System.out.print("+");
+					world[row][col] = '+';
+					System.out.print(world[row][col]);
 					break;
 				}
 				
 				//print top or bottom border
 				if ((row == -1) || (row == Params.world_height)){
-					System.out.print("-");
+					world[row][col] = '-';
+					System.out.print(world[row][col]);
 					break;
 				}
 				//print left or right border
 				if((col == -1) || (col == Params.world_width)){
-					System.out.print("|");
+					world[row][col] = '|';
+					System.out.print(world[row][col]);
 					col++;
 				}
 				
@@ -314,7 +319,11 @@ public abstract class Critter {
 					if (critter.x_coord == row && critter.y_coord == col){
 						//display the critter
 						System.out.print(critter);
+						break;
 					}
+				world[row][col] = ' ';
+				System.out.print(world[row][col]);
+				
 
 				}
 				//need a new line
