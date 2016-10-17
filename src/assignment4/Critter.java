@@ -273,6 +273,43 @@ public abstract class Critter {
 		}
 		
 	}
-	
-	public static void displayWorld() {}
+	/**
+	 * Displays all the critters in the world
+	 */
+	public static void displayWorld() {
+		for (int row = -1; row <= Params.world_height; row++){
+			for (int col = -1; col <= Params.world_width; col++){
+				//if a corner
+				if((row == -1 && col == -1) ||
+				   (row == -1 && col == Params.world_width) ||
+				   (col == -1 && row == Params.world_height) ||
+				   (col == Params.world_width && row == Params.world_height)){
+					System.out.print("+");
+					break;
+				}
+				
+				//print top or bottom border
+				if ((row == -1) || (row == Params.world_height)){
+					System.out.print("-");
+					break;
+				}
+				//print left or right border
+				if((col == -1) || (col == Params.world_width)){
+					System.out.print("|");
+					col++;
+				}
+				
+				//cycle through the critters to see if one needs to be displayed
+				for(Critter critter: population){
+					if (critter.x_coord == row && critter.y_coord == col){
+						//display the critter, how do i know the type of critter
+						critter.
+					}
+
+				}
+				//need a new line
+				System.out.println();
+			}
+		}
+	}
 }
