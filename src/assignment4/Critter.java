@@ -318,7 +318,10 @@ public abstract class Critter {
 				
 				//cycle through the critters to see if one needs to be displayed
 				for(Critter critter: population){
-					if (critter.x_coord == row && critter.y_coord == col){
+					int x = critter.x_coord + 1;
+					int y = critter.y_coord + 1;
+					
+					if (x == row && y == col){
 						//display the critter
 						System.out.print(critter);
 						printed = true;
@@ -327,7 +330,7 @@ public abstract class Critter {
 				
 				if(!printed){
 					world[row][col] = ' ';
-					System.out.print(world[row][col]);
+					//System.out.print(world[row][col]);
 					System.out.print(world[row][col]);
 				}
 				
