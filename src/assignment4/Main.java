@@ -68,7 +68,7 @@ public class Main {
 
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
-        
+        Critter.displayWorld();
         System.out.println("GLHF");
         try {
 			Critter.makeCritter("assignment4.Craig");

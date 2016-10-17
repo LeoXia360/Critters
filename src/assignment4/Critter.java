@@ -288,30 +288,33 @@ public abstract class Critter {
 	 */
 	
 	public static void displayWorld() {
-		char[][] world = new char[Params.world_height][Params.world_width];
-		for (int row = -1; row <= Params.world_height; row++){
-			for (int col = -1; col <= Params.world_width; col++){
+		char[][] world = new char[Params.world_height + 2][Params.world_width + 2];
+		boolean printed = false;
+		for (int row = 0; row < Params.world_height + 2; row++){
+			
+			for (int col = 0; col < Params.world_width + 2; col++){
 				//if a corner
-				if((row == -1 && col == -1) ||
-				   (row == -1 && col == Params.world_width) ||
-				   (col == -1 && row == Params.world_height) ||
-				   (col == Params.world_width && row == Params.world_height)){
+				if((row == 0 && col == 0) ||
+				   (row == 0 && col == Params.world_width + 2) ||
+				   (col == 0 && row == Params.world_height + 2) ||
+				   (col == Params.world_width + 2 && row == Params.world_height + 2)){
 					world[row][col] = '+';
 					System.out.print(world[row][col]);
-					break;
+					printed = true;
 				}
 				
 				//print top or bottom border
-				if ((row == -1) || (row == Params.world_height)){
+				if (!printed && (row == 0) || (row == Params.world_height + 2)){
 					world[row][col] = '-';
 					System.out.print(world[row][col]);
-					break;
+					printed = true;
 				}
 				//print left or right border
-				if((col == -1) || (col == Params.world_width)){
+				if(!printed && (row == 0) || (row == Params.world_width + 2)){
 					world[row][col] = '|';
 					System.out.print(world[row][col]);
 					col++;
+					printed = true;
 				}
 				
 				//cycle through the critters to see if one needs to be displayed
@@ -319,16 +322,18 @@ public abstract class Critter {
 					if (critter.x_coord == row && critter.y_coord == col){
 						//display the critter
 						System.out.print(critter);
-						break;
+						printed = true;
 					}
-				world[row][col] = ' ';
-				System.out.print(world[row][col]);
-				
-
 				}
-				//need a new line
-				System.out.println();
+				
+				if(!printed){
+					world[row][col] = ' ';
+					System.out.print(world[row][col]);
+				}
+				
+				printed = false;
 			}
+			System.out.println();
 		}
 	}
 }
