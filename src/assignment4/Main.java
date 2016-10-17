@@ -77,6 +77,14 @@ public class Main {
         Critter.displayWorld();
         System.out.println("GLHF");
         
+        try {
+			Critter.makeCritter("Craig");
+		} catch (InvalidCritterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        
         //Controller Component
         boolean quit = false;
         
@@ -89,21 +97,34 @@ public class Main {
         	case "quit":
         		quit = true;
         		break;
+        	
         	case "show":
-        		if (reponse.length < 1){
-        			int amountOfSteps = Integer.parseInt(reponse[1]);
-        		}
         		Critter.displayWorld();
         		break;
-        	}
         	
+        	case "step":
+        		if (reponse.length < 1){
+        			int amountOfSteps = Integer.parseInt(reponse[1]);
+        			for (int i = 0; i < amountOfSteps; i++){
+        				Critter.worldTimeStep();
+        			}
+        			break;
+        		}
+        		Critter.worldTimeStep();
+        		break;
+        		
+        	case "seed":
+        		long num = Integer.parseInt(reponse[1]);
+        		Critter.setSeed(num);
+        		break;
         	
-        	
+        	case "make":
+        		
         }
         
         /* Write your code above */
         System.out.flush();
         System.out.println("Done");
-
+        }
     }
 }
