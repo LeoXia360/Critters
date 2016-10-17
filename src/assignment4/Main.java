@@ -76,13 +76,7 @@ public class Main {
 
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
-        try {
-			Critter.makeCritter("Craig");
-		} catch (InvalidCritterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        Critter.displayWorld();
+        
         System.out.println("GLHF");
         
         //Controller Component
@@ -147,7 +141,6 @@ public class Main {
         		break;
         	
         	case "make":
-<<<<<<< HEAD
         		if (reponse.length < 3){
         			System.out.println("invalid command: " + input);
         		}
@@ -171,9 +164,7 @@ public class Main {
         			}
         		}
         		break;
-        	}
-=======
-        		
+	
         	case "stats":
         		try {
         			Critter.makeCritter("Craig");
@@ -186,12 +177,11 @@ public class Main {
     				throw new InvalidCritterException(reponse[1]);
         		}
         		
->>>>>>> e94eb8df9d80abf01cc7c33ef3f42a8c75066b1a
+
         }
         
         /* Write your code above */
         System.out.flush();
-        System.out.println("Done");
         }
     }
 }
