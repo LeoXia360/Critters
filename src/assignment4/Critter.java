@@ -133,11 +133,9 @@ public abstract class Critter {
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
 		//we can probably reduce this code by putting in all the critters into a list and just going through the list
 		//but we'll keep this for now and change it later when we add more critters.
-		if (!critter_class_name.equals("assignment4.Craig"))
-			throw new InvalidCritterException(critter_class_name);
 		
 		try {
-			Class<?> createCritter = Class.forName(critter_class_name);
+			Class<?> createCritter = Class.forName("assignment4." + critter_class_name);
 			Constructor<?> createConstructor = createCritter.getConstructor();
 			
 			Critter newCritter = (Critter) createConstructor.newInstance();
@@ -148,17 +146,20 @@ public abstract class Critter {
 			
 			population.add(newCritter);
 		} 
+		catch (NoClassDefFoundError e){
+			throw new InvalidCritterException(critter_class_name);
+		}
 		
 		//catch for ClassNotFound
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			System.out.println("Class not found");
 		}
-		
 		//catch the other Exceptions
 		catch (Exception e){
 			e.printStackTrace();
 		}
+		
+		
 		
 	}
 	
@@ -254,6 +255,8 @@ public abstract class Critter {
 	 * Clear the world of all critters, dead and alive
 	 */
 	public static void clearWorld() {
+		population.clear();
+		babies.clear();
 	}
 	
 	public static void worldTimeStep() {

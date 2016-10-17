@@ -69,7 +69,7 @@ public class Main {
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
         try {
-			Critter.makeCritter("assignment4.Craig");
+			Critter.makeCritter("Craig");
 		} catch (InvalidCritterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
