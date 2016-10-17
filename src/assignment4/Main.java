@@ -70,17 +70,34 @@ public class Main {
         /* Write your code below. */
         
         System.out.println("GLHF");
-        try {
-			Critter.makeCritter("assignment4.Craig");
-		} catch (InvalidCritterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
         
-        System.out.println("DONE");
+        //Controller Component
+        boolean quit = false;
+        
+        while(!quit){
+        	System.out.print("critter>");
+        	String[] reponse = kb.nextLine().split(" ");
+        	System.out.println(reponse.length);
+        	
+        	switch(reponse[0]){
+        	case "quit":
+        		quit = true;
+        		break;
+        	case "show":
+        		if (reponse.length < 1){
+        			int amountOfSteps = Integer.parseInt(reponse[1]);
+        		}
+        		Critter.displayWorld();
+        		break;
+        	}
+        	
+        	
+        	
+        }
         
         /* Write your code above */
         System.out.flush();
+        System.out.println("Done");
 
     }
 }
