@@ -318,7 +318,7 @@ public abstract class Critter {
 		//generate more alage on the board
 		for(int i = 0; i < Params.refresh_algae_count; i ++){
 	        try {
-				Critter.makeCritter("assignment4.Alage");
+				Critter.makeCritter("Algae");
 			} catch (InvalidCritterException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -331,17 +331,18 @@ public abstract class Critter {
 	 */
 	
 	public static void displayWorld() {
-		String[][] world = new String[Params.world_height + 2][Params.world_width + 2];
+		String[][] world = new String[Params.world_height + 2][2*Params.world_width + 2];
 		for (int row = 0; row < Params.world_height + 2; row++){
-			for (int column = 0; column < Params.world_width + 2; column++){
-				boolean critterExits = false;
-				for (Critter critter: population){
-					if (critter.x_coord + 1 == row && column == critter.y_coord + 1){
-						world[critter.x_coord + 1][critter.y_coord + 1] = critter.toString();
-						critterExits = true;
-					}
-				}
-				if (!critterExits){
+			for (int column = 0; column < 2*Params.world_width + 2; column++){
+//				boolean critterExits = false;
+//				for (Critter critter: population){
+//					if (critter.x_coord + 1 == row && column == critter.y_coord + 1){
+//						world[row][column] = critter.toString();
+//						critterExits = true;
+//						System.out.println(critter.x_coord + " " + critter.y_coord);
+//					}
+//				}
+				//if (!critterExits){
 					if ((row == 0 || row == Params.world_height + 1) && (column == 0 || column == Params.world_width + 1)){
 						world[row][column] = "+";
 					}
@@ -354,11 +355,29 @@ public abstract class Critter {
 					else{
 						world[row][column] = " ";
 					}
-				}
-				System.out.print(world[row][column]);
+				//}
+				//System.out.print(world[row][column]);
 			}
-			System.out.println();
+			//System.out.println();
 		}
+		
+		for (Critter critter: population){
+			world[critter.x_coord+1][critter.y_coord+1] = critter.toString();
+			System.out.println(critter.x_coord + " " + critter.y_coord);
+			for(int i= 0; i < Params.world_height+2; i++){
+				for(int j = 0; j < Params.world_height; j++){
+					System.out.print(world[i][j]);
+				}
+				System.out.println();
+			}
+		}
+		
+//		for(int i= 0; i < Params.world_height+2; i++){
+//			for(int j = 0; j < Params.world_height; j++){
+//				System.out.print(world[i][j]);
+//			}
+//			System.out.println();
+//		}
 		
 //		char[][] world = new char[Params.world_height + 2][Params.world_width + 2];
 //		boolean printed = false;
