@@ -50,14 +50,51 @@ public abstract class Critter {
 	private int x_coord;
 	private int y_coord;
 	
-	protected final void walk(int direction) {
+	private void move(int direction, int num_steps, int energy_cost){
+		switch (direction){
+		case 0: this.x_coord += num_steps;
+				break;
+		case 1: this.x_coord += num_steps;
+				this.y_coord += num_steps;
+				break;
+		case 2: this.y_coord += num_steps;
+				break;
+		case 3: this.y_coord += num_steps;
+				this.x_coord -= num_steps;
+				break;
+		case 4: this.x_coord -= num_steps;
+				break;
+		case 5: this.x_coord -= num_steps;
+				this.y_coord -= num_steps;
+				break;
+		case 6: this.y_coord -= num_steps;
+				break;
+		case 7:	this.x_coord += num_steps;
+				this.y_coord -= num_steps;
+				break;
+	}
+		this.energy -= energy_cost;
+
 	}
 	
-	protected final void run(int direction) {
+	
+	protected final void walk(int direction) {
+		move(direction, 1, Params.walk_energy_cost);
 		
 	}
 	
+	protected final void run(int direction) {
+		move(direction, 2, Params.run_energy_cost);
+	}
+	
 	protected final void reproduce(Critter offspring, int direction) {
+		if (this.getEnergy() < Params.min_reproduce_energy){
+			return;
+		}
+		offspring.energy = (int) Math.floor(this.getEnergy() / 2);
+		this.energy = (int) Math.ceil(this.getEnergy() / 2);
+		offspring.x_coord = this.x_coord;
+		offspring.y_coord = this.y_coord + 1;
 	}
 
 	public abstract void doTimeStep();
