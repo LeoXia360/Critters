@@ -291,26 +291,25 @@ public abstract class Critter {
 		char[][] world = new char[Params.world_height + 2][Params.world_width + 2];
 		boolean printed = false;
 		for (int row = 0; row < Params.world_height + 2; row++){
-			
 			for (int col = 0; col < Params.world_width + 2; col++){
 				//if a corner
 				if((row == 0 && col == 0) ||
-				   (row == 0 && col == Params.world_width + 2) ||
-				   (col == 0 && row == Params.world_height + 2) ||
-				   (col == Params.world_width + 2 && row == Params.world_height + 2)){
+				   (row == 0 && col == Params.world_width + 1) ||
+				   (col == 0 && row == Params.world_height + 1) ||
+				   (col == Params.world_width + 1 && row == Params.world_height + 1)){
 					world[row][col] = '+';
 					System.out.print(world[row][col]);
 					printed = true;
 				}
 				
 				//print top or bottom border
-				if (!printed && (row == 0) || (row == Params.world_height + 2)){
+				if (!printed && ((row == 0) || (row == Params.world_height + 1))){
 					world[row][col] = '-';
 					System.out.print(world[row][col]);
 					printed = true;
 				}
 				//print left or right border
-				if(!printed && (row == 0) || (row == Params.world_width + 2)){
+				if(!printed && ((col == 0) || (col == Params.world_width + 1))){
 					world[row][col] = '|';
 					System.out.print(world[row][col]);
 					col++;
@@ -319,7 +318,10 @@ public abstract class Critter {
 				
 				//cycle through the critters to see if one needs to be displayed
 				for(Critter critter: population){
-					if (critter.x_coord == row && critter.y_coord == col){
+					int x = critter.x_coord + 1;
+					int y = critter.y_coord + 1;
+					
+					if (x == row && y == col){
 						//display the critter
 						System.out.print(critter);
 						printed = true;
@@ -328,6 +330,7 @@ public abstract class Critter {
 				
 				if(!printed){
 					world[row][col] = ' ';
+					//System.out.print(world[row][col]);
 					System.out.print(world[row][col]);
 				}
 				
