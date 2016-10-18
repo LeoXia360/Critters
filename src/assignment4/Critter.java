@@ -350,7 +350,6 @@ public abstract class Critter {
 	        try {
 				Critter.makeCritter("Algae");
 			} catch (InvalidCritterException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
