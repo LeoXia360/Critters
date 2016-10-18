@@ -344,7 +344,7 @@ public abstract class Critter {
 					if (!cFight){critterFightNum = 0;}
 					if (!oFight){oponentFightNum = 0;}
 					if (oponentFightNum == 0 && critterFightNum == 0){
-						//run?
+						break;
 					}
 					if (critterFightNum > oponentFightNum){
 						critter.energy += oponent.energy / 2;
