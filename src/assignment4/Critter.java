@@ -329,6 +329,14 @@ public abstract class Critter {
 	
 	public static void worldTimeStep() {
 		for(Critter critter: population){
+			for(Critter oponent: population){
+				if(critter.x_coord == oponent.x_coord && critter.y_coord == oponent.y_coord){
+					critter.fight(oponent.toString());
+				}
+			}
+		}
+		
+		for(Critter critter: population){
 			critter.doTimeStep();
 		}
 		
@@ -342,7 +350,6 @@ public abstract class Critter {
 	        try {
 				Critter.makeCritter("Algae");
 			} catch (InvalidCritterException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
