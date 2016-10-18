@@ -155,7 +155,6 @@ public abstract class Critter {
 		this.energy = (int) Math.ceil(this.getEnergy() / 2);
 		offspring.x_coord = this.x_coord;
 		offspring.y_coord = this.y_coord + 1;
-		babies.add(offspring);
 	}
 
 	public abstract void doTimeStep();
@@ -329,7 +328,6 @@ public abstract class Critter {
 	}
 	
 	public static void worldTimeStep() {
-		
 		for(Critter critter: population){
 			critter.doTimeStep();
 		}
@@ -337,12 +335,6 @@ public abstract class Critter {
 		//deduct the rest energy from all critters
 		for(Critter critter: population){
 			critter.energy -= Params.rest_energy_cost;
-		}
-		
-		//remove dead critters from population
-		for(Critter critter: population){
-			if (critter.energy <= 0)
-				population.remove(critter);
 		}
 		
 		//generate more alage on the board
@@ -355,8 +347,14 @@ public abstract class Critter {
 			}
 		}
 		
-		population.addAll(babies);
-		babies.clear();
+		//remove dead critters from population
+		List<Critter> remove = new java.util.ArrayList<Critter>();
+		for(Critter critter: population){
+			if (critter.energy <= 0)
+				remove.add(critter);
+		}
+		population.removeAll(remove);
+		
 	}
 	/**
 	 * Displays all the critters in the world
