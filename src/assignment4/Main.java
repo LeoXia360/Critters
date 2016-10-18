@@ -184,7 +184,7 @@ public class Main {
         			break;
         		}
         		try {
-        			Class.forName("assignment4." + reponse[1]);
+        			Class.forName(myPackage + "."+ reponse[1]);
         			List<Critter> c = new ArrayList<Critter>();
         			c = Critter.getInstances(reponse[1]);
         			Critter.runStats(c);

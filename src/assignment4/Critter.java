@@ -175,7 +175,7 @@ public abstract class Critter {
 		//but we'll keep this for now and change it later when we add more critters.
 		
 		try {
-			Class<?> createCritter = Class.forName("assignment4." + critter_class_name);
+			Class<?> createCritter = Class.forName(myPackage + "." + critter_class_name);
 			Constructor<?> createConstructor = createCritter.getConstructor();
 			
 			Critter newCritter = (Critter) createConstructor.newInstance();
@@ -216,7 +216,7 @@ public abstract class Critter {
 		List<Critter> result = new java.util.ArrayList<Critter>();
 		String c = null;
 		try {
-			Class<?> createCritter = Class.forName("assignment4." + critter_class_name);
+			Class<?> createCritter = Class.forName(myPackage + "." + critter_class_name);
 			Constructor<?> createConstructor = createCritter.getConstructor();
 			Critter newCritter = (Critter) createConstructor.newInstance();
 			c = newCritter.toString();
