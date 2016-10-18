@@ -332,7 +332,9 @@ public abstract class Critter {
 		
 		for(Critter critter: population){
 			for(Critter oponent: population){
-				if(critter.x_coord == oponent.x_coord && critter.y_coord == oponent.y_coord){
+				if(critter.x_coord == oponent.x_coord && 
+						critter.y_coord == oponent.y_coord && 
+						population.indexOf(critter) != population.indexOf(oponent)){
 					critter.fight(oponent.toString());
 				}
 			}
