@@ -328,12 +328,35 @@ public abstract class Critter {
 	}
 	
 	public static void worldTimeStep() {
+		
 		for(Critter critter: population){
 			for(Critter oponent: population){
 				if(critter.x_coord == oponent.x_coord && 
 						critter.y_coord == oponent.y_coord && 
 						population.indexOf(critter) != population.indexOf(oponent)){
-					critter.fight(oponent.toString());
+					
+					//are the critters and oponents gonna fight?
+					boolean cFight = critter.fight(oponent.toString());
+					boolean oFight = oponent.fight(critter.toString());
+					int critterFightNum = getRandomInt(critter.energy);
+					int oponentFightNum = getRandomInt(oponent.energy);
+					//if they're not fighting then set they're num to 0
+					if (!cFight){critterFightNum = 0;}
+					if (!oFight){oponentFightNum = 0;}
+					if (oponentFightNum == 0 && critterFightNum == 0){
+						//run?
+					}
+					if (critterFightNum > oponentFightNum){
+						critter.energy += oponent.energy / 2;
+						population.remove(oponent);
+					}else if (critterFightNum < oponentFightNum){
+						oponent.energy += critter.energy / 2;
+						population.remove(critter);
+					}else{
+						oponent.energy += critter.energy / 2;
+						population.remove(critter);
+					}
+						
 				}
 			}
 		}
