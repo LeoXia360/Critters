@@ -78,7 +78,7 @@ public class Main {
         /* Write your code below. */
 
         try {
-        	for(int i = 0; i < 25; i++){
+        	for(int i = 0; i < 1; i++){
         		Critter.makeCritter("Craig");
         	}
 //        	for(int j = 0; j < 100; j++){

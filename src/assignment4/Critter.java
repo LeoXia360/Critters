@@ -108,17 +108,17 @@ public abstract class Critter {
 	 */
 	protected final void walk(int direction) {
 		move(direction, 1, Params.walk_energy_cost);
-		if(this.x_coord > Params.world_width){
+		if(this.x_coord >= Params.world_width -1){
 			this.x_coord = 0;
 		}
 		if(this.x_coord < 0){
-			this.x_coord = Params.world_width;
+			this.x_coord = Params.world_width -1;
 		}
-		if(this.y_coord > Params.world_height){
+		if(this.y_coord >= Params.world_height-1){
 			this.y_coord = 0;
 		}
 		if(this.y_coord < 0){
-			this.y_coord = Params.world_height;
+			this.y_coord = Params.world_height -1;
 		}
 		
 	}
@@ -130,10 +130,10 @@ public abstract class Critter {
 	protected final void run(int direction) {
 		move(direction, 2, Params.run_energy_cost);
 		switch (this.x_coord){
-			case Params.world_width + 2:
+			case Params.world_width + 1:
 				this.x_coord = 2;
 				break;
-			case Params.world_width + 1:
+			case Params.world_width:
 				this.x_coord  = 1;
 				break;
 			case -2:
@@ -144,10 +144,10 @@ public abstract class Critter {
 				break;
 		}
 		switch (this.y_coord){
-		case Params.world_height + 2:
+		case Params.world_height + 1:
 			this.y_coord = 2;
 			break;
-		case Params.world_height + 1:
+		case Params.world_height:
 			this.y_coord  = 1;
 			break;
 		case -2:
@@ -173,6 +173,7 @@ public abstract class Critter {
 		this.energy = (int) Math.ceil(this.getEnergy() / 2);
 		offspring.x_coord = this.x_coord;
 		offspring.y_coord = this.y_coord + 1;
+		babies.add(offspring);
 	}
 
 	public abstract void doTimeStep();
@@ -347,12 +348,25 @@ public abstract class Critter {
 	
 	public static void worldTimeStep() {
 		
+		
+		for(Critter critter: population){
+			if (critter.toString().equals("C")){
+				System.out.println(critter.getEnergy());
+			}
+			critter.doTimeStep();
+		}
+		System.out.println("before" + population.size());
+		population.addAll(babies);
+		System.out.println("after " + population.size());
+		babies.clear();
+		
+		
 		for(Critter critter: population){
 			for(Critter oponent: population){
 				if(critter.x_coord == oponent.x_coord && 
 						critter.y_coord == oponent.y_coord && 
 						population.indexOf(critter) != population.indexOf(oponent) &&
-						(critter.energy <= 0) && (oponent.energy <= 0)
+						(critter.energy > 0) && (oponent.energy > 0)
 						){
 					
 					//are the critters and oponents gonna fight?
@@ -380,10 +394,6 @@ public abstract class Critter {
 					}
 				}
 			}
-		}
-		
-		for(Critter critter: population){
-			critter.doTimeStep();
 		}
 		
 		//deduct the rest energy from all critters
@@ -414,6 +424,10 @@ public abstract class Critter {
 	 */
 	
 	public static void displayWorld() {
+//		for (Critter critter: population){
+//			System.out.println(critter.x_coord + ", " + critter.y_coord);
+//		}
+		
 		String[][] world = new String[Params.world_height + 2][Params.world_width + 2];
 		for (int row = 0; row < Params.world_height + 2; row++){
 			for (int column = 0; column < Params.world_width + 2; column++){
