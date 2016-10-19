@@ -192,6 +192,7 @@ public class Main {
         		catch (ClassNotFoundException e){
     				throw new InvalidCritterException(reponse[1]);
         		}
+        		break;
         	default: 
         		System.out.println("invalid command:" + input);
         }
