@@ -31,8 +31,6 @@ public class SteveJobs extends Critter{
 	}
 
 	public boolean fight(String oponent) {
-		//Steve always defeats opponents
-		
 		return true;
 	}
 

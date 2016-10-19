@@ -344,19 +344,23 @@ public abstract class Critter {
 					if (!cFight){critterFightNum = 0;}
 					if (!oFight){oponentFightNum = 0;}
 					if (oponentFightNum == 0 && critterFightNum == 0){
+						//break if both decide to run/walk away
 						break;
 					}
 					if (critterFightNum > oponentFightNum){
 						critter.energy += oponent.energy / 2;
+						oponent.energy = 0;
 						population.remove(oponent);
 					}else if (critterFightNum < oponentFightNum){
 						oponent.energy += critter.energy / 2;
+						critter.energy = 0;
 						population.remove(critter);
 					}else{
+						//arbitrarily chooses a winner
 						oponent.energy += critter.energy / 2;
+						critter.energy = 0;
 						population.remove(critter);
 					}
-						
 				}
 			}
 		}
