@@ -84,6 +84,24 @@ public abstract class Critter {
 
 	}
 	
+	private final int wrapX(int x){
+		if(x<0){
+			return Params.world_width - 1;
+		}else if (x == Params.world_width) {
+			return 0;
+		} else {
+			return x;
+		}
+	}
+	private final int wrapY(int y){
+		if (y<0){
+			return Params.world_height -1;
+		}else if (y == Params.world_height){
+			return 0;
+		}else{
+			return y;
+		}
+	}
 	/**
 	 * Determines how a critter walks using the move method
 	 * @param direction
@@ -397,34 +415,36 @@ public abstract class Critter {
 	 */
 	
 	public static void displayWorld() {
-		String[][] world = new String[Params.world_height + 2][Params.world_width + 2];
-		for (int row = 0; row < Params.world_height + 2; row++){
-			for (int column = 0; column < Params.world_width + 2; column++){
-				boolean critterExits = false;
-				for (Critter critter: population){
-					if (critter.y_coord + 1 == row && column == critter.x_coord + 1){
-						world[row][column] = critter.toString();
-						critterExits = true;
-					}
-				}
-				if (!critterExits){
-					if ((row == 0 || row == Params.world_height + 1) && (column == 0 || column == Params.world_width + 1)){
-						world[row][column] = "+";
-					}
-					else if (row == 0 || row == Params.world_height + 1){
-						world[row][column] = "-";
-					}
-					else if (column == 0 || column == Params.world_width + 1){
-						world[row][column] = "|";
-					}
-					else{
-						world[row][column] = " ";
-					}
-				}
-				System.out.print(world[row][column]);
-			}
-			System.out.println();
-		}
+//		String[][] world = new String[Params.world_height + 2][Params.world_width + 2];
+//		for (int row = 0; row < Params.world_height + 2; row++){
+//			for (int column = 0; column < Params.world_width + 2; column++){
+//				boolean critterExits = false;
+//				for (Critter critter: population){
+//					if (critter.y_coord + 1 == row && column == critter.x_coord + 1){
+//						world[row][column] = critter.toString();
+//						critterExits = true;
+//					}
+//				}
+//				if (!critterExits){
+//					if ((row == 0 || row == Params.world_height + 1) && (column == 0 || column == Params.world_width + 1)){
+//						world[row][column] = "+";
+//					}
+//					else if (row == 0 || row == Params.world_height + 1){
+//						world[row][column] = "-";
+//					}
+//					else if (column == 0 || column == Params.world_width + 1){
+//						world[row][column] = "|";
+//					}
+//					else{
+//						world[row][column] = " ";
+//					}
+//				}
+//				System.out.print(world[row][column]);
+//			}
+//			System.out.println();
+//		}
+//		
+		//leo's
 		
 //		for (Critter critter: population){
 //			world[critter.y_coord+1][critter.x_coord+1] = critter.toString();
