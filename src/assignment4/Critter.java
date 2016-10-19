@@ -84,24 +84,24 @@ public abstract class Critter {
 
 	}
 	
-//	private final int wrapX(int x){
-//		if(x<0){
-//			return Params.world_width - 1;
-//		}else if (x == Params.world_width) {
-//			return 0;
-//		} else {
-//			return x;
-//		}
-//	}
-//	private final int wrapY(int y){
-//		if (y<0){
-//			return Params.world_height -1;
-//		}else if (y == Params.world_height){
-//			return 0;
-//		}else{
-//			return y;
-//		}
-//	}
+	private final int wrapX(int x){
+		if(x<0){
+			return Params.world_width - 1;
+		}else if (x == Params.world_width) {
+			return 0;
+		} else {
+			return x;
+		}
+	}
+	private final int wrapY(int y){
+		if (y<0){
+			return Params.world_height -1;
+		}else if (y == Params.world_height){
+			return 0;
+		}else{
+			return y;
+		}
+	}
 	/**
 	 * Determines how a critter walks using the move method
 	 * @param direction
@@ -142,24 +142,20 @@ public abstract class Critter {
 			case -1:
 				this.x_coord = Params.world_width - 1;
 				break;
-			default:
-				break;
 		}
 		switch (this.y_coord){
-			case Params.world_height + 2:
-				this.y_coord = 2;
-				break;
-			case Params.world_height + 1:
-				this.y_coord  = 1;
-				break;
-			case -2:
-				this.y_coord = Params.world_height - 2;
-				break;
-			case -1:
-				this.y_coord = Params.world_height - 1;
-				break;
-			default:
-				break;
+		case Params.world_height + 2:
+			this.y_coord = 2;
+			break;
+		case Params.world_height + 1:
+			this.y_coord  = 1;
+			break;
+		case -2:
+			this.y_coord = Params.world_height - 2;
+			break;
+		case -1:
+			this.y_coord = Params.world_height - 1;
+			break;
 	}
 	}
 	
@@ -355,7 +351,9 @@ public abstract class Critter {
 			for(Critter oponent: population){
 				if(critter.x_coord == oponent.x_coord && 
 						critter.y_coord == oponent.y_coord && 
-						population.indexOf(critter) != population.indexOf(oponent)){
+						population.indexOf(critter) != population.indexOf(oponent) &&
+						(critter.energy <= 0) && (oponent.energy <= 0)
+						){
 					
 					//are the critters and oponents gonna fight?
 					boolean cFight = critter.fight(oponent.toString());
@@ -372,16 +370,13 @@ public abstract class Critter {
 					if (critterFightNum > oponentFightNum){
 						critter.energy += oponent.energy / 2;
 						oponent.energy = 0;
-						population.remove(oponent);
 					}else if (critterFightNum < oponentFightNum){
 						oponent.energy += critter.energy / 2;
 						critter.energy = 0;
-						population.remove(critter);
 					}else{
 						//arbitrarily chooses a winner
 						oponent.energy += critter.energy / 2;
 						critter.energy = 0;
-						population.remove(critter);
 					}
 				}
 			}
@@ -447,76 +442,5 @@ public abstract class Critter {
 			}
 			System.out.println();
 		}
-		
-		//leo's
-		
-//		for (Critter critter: population){
-//			world[critter.y_coord+1][critter.x_coord+1] = critter.toString();
-//			System.out.println(critter.x_coord + " " + critter.y_coord);
-//			for(int i= 0; i < Params.world_height+2; i++){
-//				for(int j = 0; j < Params.world_height; j++){
-//					System.out.print(world[j][i]);
-//				}
-//				System.out.println();
-//			}
-//		}
-		
-//		for(int i= 0; i < Params.world_height+2; i++){
-//			for(int j = 0; j < Params.world_height; j++){
-//				System.out.print(world[i][j]);
-//			}
-//			System.out.println();
-//		}
-		
-//		char[][] world = new char[Params.world_height + 2][Params.world_width + 2];
-//		boolean printed = false;
-//		for (int row = 0; row < Params.world_height + 2; row++){
-//			for (int col = 0; col < Params.world_width + 2; col++){
-//				//if a corner
-//				if((row == 0 && col == 0) ||
-//				   (row == 0 && col == Params.world_width + 1) ||
-//				   (col == 0 && row == Params.world_height + 1) ||
-//				   (col == Params.world_width + 1 && row == Params.world_height + 1)){
-//					world[row][col] = '+';
-//					System.out.print(world[row][col]);
-//					printed = true;
-//				}
-//				
-//				//print top or bottom border
-//				if (!printed && ((row == 0) || (row == Params.world_height + 1))){
-//					world[row][col] = '-';
-//					System.out.print(world[row][col]);
-//					printed = true;
-//				}
-//				//print left or right border
-//				if(!printed && ((col == 0) || (col == Params.world_width + 1))){
-//					world[row][col] = '|';
-//					System.out.print(world[row][col]);
-//					col++;
-//					printed = true;
-//				}
-//				
-//				//cycle through the critters to see if one needs to be displayed
-//				for(Critter critter: population){
-//					int x = critter.x_coord + 1;
-//					int y = critter.y_coord + 1;
-//					
-//					if (x == row && y == col){
-//						//display the critter
-//						System.out.print(critter);
-//						printed = true;
-//					}
-//				}
-//				
-//				if(!printed){
-//					world[row][col] = ' ';
-//					//System.out.print(world[row][col]);
-//					System.out.print(world[row][col]);
-//				}
-//				
-//				printed = false;
-//			}
-//			System.out.println();
-//		}
 	}
 }
