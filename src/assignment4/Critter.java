@@ -445,6 +445,7 @@ public abstract class Critter {
 										//move the critter back to its original place
 										critter.x_coord = critterXTemp;
 										critter.y_coord = critterYTemp;
+										critter.move = false;
 										critterCanNotLeave = true;
 										break;
 									}
@@ -464,6 +465,7 @@ public abstract class Critter {
 										//move the critter back to its original place
 										oponent.x_coord = oponentXTemp;
 										oponent.y_coord = oponentYTemp;
+										oponent.move = false;
 										oponentCanNotLeave = true;
 										break;
 									}
