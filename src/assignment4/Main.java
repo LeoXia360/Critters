@@ -102,7 +102,7 @@ public class Main {
         	switch(reponse[0]){
         	case "quit":
         		if (reponse.length > 1){
-        			System.out.println("invalid command: " + input);
+        			System.out.println("error processing: " + input);
         		}
         		else{
         			System.exit(0);
@@ -111,7 +111,7 @@ public class Main {
         	
         	case "show":
         		if (reponse.length > 1){
-        			System.out.println("invalid command: " + input);
+        			System.out.println("error processing: " + input);
         			break;
         		}
         		Critter.displayWorld();
@@ -119,7 +119,7 @@ public class Main {
         	
         	case "step":
         		if (reponse.length > 2){
-        			System.out.println("invalid command: " + input);
+        			System.out.println("error processing: " + input);
         		}
         		else if (reponse.length == 2){
         			try{
@@ -139,7 +139,7 @@ public class Main {
         		
         	case "seed":
         		if (reponse.length != 2){
-        			System.out.println("invalid command: " + input);
+        			System.out.println("error processing: " + input);
         		}
         		else{
         			try{
@@ -154,7 +154,7 @@ public class Main {
         	
         	case "make":
         		if (reponse.length > 3){
-        			System.out.println("invalid command: " + input);
+        			System.out.println("error processing: " + input);
         		}
         		else{
         			try{
@@ -166,8 +166,11 @@ public class Main {
         					try{
         						Critter.makeCritter(reponse[1]);
         					}
+        					catch(InvalidCritterException e){
+        						System.out.println("error processing: " + input);
+        					}
         					catch (Exception e){
-        						
+        						System.out.println("error processing: " + input);
         					}
         				}
         			}
@@ -180,7 +183,7 @@ public class Main {
         		
         	case "stats":
         		if (reponse.length < 2){
-        			System.out.println("invalid command: " + input);
+        			System.out.println("error processing: " + input);
         			break;
         		}
         		try {

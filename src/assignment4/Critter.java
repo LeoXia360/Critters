@@ -227,11 +227,11 @@ public abstract class Critter {
 		
 		//catch for ClassNotFound
 		catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			throw new InvalidCritterException(critter_class_name);
 		}
 		//catch the other Exceptions
 		catch (Exception e){
-			e.printStackTrace();
+			throw new InvalidCritterException(critter_class_name);
 		}
 		
 		
