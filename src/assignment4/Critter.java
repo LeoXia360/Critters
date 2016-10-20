@@ -65,12 +65,6 @@ public abstract class Critter {
 				this.y_coord += num_steps;
 				break;
 		case 2: this.y_coord += num_steps;
-				if(this.y_coord == 0){
-					System.out.println("2");
-				}
-				if(this.y_coord == 1){
-					System.out.println("1");
-				}
 				break;
 		case 3: this.y_coord += num_steps;
 				this.x_coord -= num_steps;
@@ -85,20 +79,21 @@ public abstract class Critter {
 		case 7:	this.x_coord += num_steps;
 				this.y_coord -= num_steps;
 				break;
-	}
+		}
 		this.energy -= energy_cost;
 
 	}
 	
-//	private final int wrapX(int x){
-//		if(x<0){
-//			return Params.world_width - 1;
-//		}else if (x == Params.world_width) {
-//			return 0;
-//		} else {
-//			return x;
-//		}
-//	}
+	private final int wrapX(int x){
+		if(x<0){
+			return Params.world_width - 1;
+		}else if (x == Params.world_width) {
+			return 0;
+		} else {
+			return x;
+		}
+	}
+	
 	private final int wrapY(int y){
 		if (y<0){
 			return Params.world_height -1;
@@ -184,8 +179,30 @@ public abstract class Critter {
 		}
 		offspring.energy = (int) Math.floor(this.getEnergy() / 2);
 		this.energy = (int) Math.ceil(this.getEnergy() / 2);
-		offspring.x_coord = this.x_coord;
-		offspring.y_coord = wrapY(this.y_coord + 1);
+		switch (direction){
+		case 0: this.x_coord += 1;
+				break;
+		case 1: this.x_coord += 1;
+				this.y_coord += 1;
+				break;
+		case 2: this.y_coord += 1;
+				break;
+		case 3: this.y_coord += 1;
+				this.x_coord -= 1;
+				break;
+		case 4: this.x_coord -= 1;
+				break;
+		case 5: this.x_coord -= 1;
+				this.y_coord -= 1;
+				break;
+		case 6: this.y_coord -= 1;
+				break;
+		case 7:	this.x_coord += 1;
+				this.y_coord -= 1;
+				break;
+		}
+		offspring.x_coord = wrapX(this.x_coord);
+		offspring.y_coord = wrapY(this.y_coord);
 		babies.add(offspring);
 	}
 
