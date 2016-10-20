@@ -441,7 +441,7 @@ public abstract class Critter {
 								//if this for loop is reached, that means the critter can move, now to see if there's a space open for it.
 								for (Critter i: population){
 									//checks to see if the spot that the critter ran during fight is already occupied
-									if((critter.x_coord == i.x_coord) && (critter.y_coord == i.y_coord) && population.indexOf(critter) != population.indexOf(i)){
+									if((critter.x_coord == i.x_coord) && (critter.y_coord == i.y_coord) && (population.indexOf(critter) != population.indexOf(i)) && (i.getEnergy() > 0)){
 										//move the critter back to its original place
 										critter.x_coord = critterXTemp;
 										critter.y_coord = critterYTemp;
@@ -460,7 +460,7 @@ public abstract class Critter {
 							if(oponentMove == false){
 								for (Critter i: population){
 									//checks to see if the spot that the critter ran during fight is already occupied
-									if((oponent.x_coord == i.x_coord) && (oponent.y_coord == i.y_coord) && population.indexOf(oponent) != population.indexOf(i)){
+									if((oponent.x_coord == i.x_coord) && (oponent.y_coord == i.y_coord) && (population.indexOf(oponent) != population.indexOf(i)) && (i.getEnergy() > 0)){
 										//move the critter back to its original place
 										oponent.x_coord = oponentXTemp;
 										oponent.y_coord = oponentYTemp;
