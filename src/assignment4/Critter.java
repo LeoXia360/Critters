@@ -63,22 +63,22 @@ public abstract class Critter {
 		case 0: this.x_coord += num_steps;
 				break;
 		case 1: this.x_coord += num_steps;
-				this.y_coord += num_steps;
+				this.y_coord -= num_steps;
 				break;
-		case 2: this.y_coord += num_steps;
+		case 2: this.y_coord -= num_steps;
 				break;
-		case 3: this.y_coord += num_steps;
+		case 3: this.y_coord -= num_steps;
 				this.x_coord -= num_steps;
 				break;
 		case 4: this.x_coord -= num_steps;
 				break;
 		case 5: this.x_coord -= num_steps;
-				this.y_coord -= num_steps;
+				this.y_coord += num_steps;
 				break;
-		case 6: this.y_coord -= num_steps;
+		case 6: this.y_coord += num_steps;
 				break;
 		case 7:	this.x_coord += num_steps;
-				this.y_coord -= num_steps;
+				this.y_coord += num_steps;
 				break;
 		}
 		this.energy -= energy_cost;
@@ -184,22 +184,22 @@ public abstract class Critter {
 		case 0: this.x_coord += 1;
 				break;
 		case 1: this.x_coord += 1;
-				this.y_coord += 1;
+				this.y_coord -= 1;
 				break;
-		case 2: this.y_coord += 1;
+		case 2: this.y_coord -= 1;
 				break;
-		case 3: this.y_coord += 1;
+		case 3: this.y_coord -= 1;
 				this.x_coord -= 1;
 				break;
 		case 4: this.x_coord -= 1;
 				break;
 		case 5: this.x_coord -= 1;
-				this.y_coord -= 1;
+				this.y_coord += 1;
 				break;
-		case 6: this.y_coord -= 1;
+		case 6: this.y_coord += 1;
 				break;
 		case 7:	this.x_coord += 1;
-				this.y_coord -= 1;
+				this.y_coord += 1;
 				break;
 		}
 		offspring.x_coord = wrapX(this.x_coord);
@@ -451,6 +451,9 @@ public abstract class Critter {
 								}
 							}
 						}
+						else if(cFight == true){
+							critterCanNotLeave = true;
+						}
 						
 						if(oFight == false){
 							//critter didn't move during the doTimeStep
@@ -467,13 +470,12 @@ public abstract class Critter {
 								}
 							}
 						}
-						
-						//if this evaluates to true, then either the critter, oponent, or both where able to run
-						if(critterCanNotLeave || oponentCanNotLeave){
-							break;
+						else if(oFight == true){
+							oponentCanNotLeave = true;
 						}
-						//this means that both of them could not move, so conflict still exists. They're gonna have to fightv
-						else{
+						
+						//if this evaluates to true, then both the critter and oponent can't leave, so they have to fight
+						if(critterCanNotLeave && oponentCanNotLeave){
 							int critterFightNum = getRandomInt(critter.energy);
 							int oponentFightNum = getRandomInt(oponent.energy);
 							if (critter.toString().equals("@")){
@@ -493,6 +495,29 @@ public abstract class Critter {
 								oponent.energy += critter.energy / 2;
 								critter.energy = 0;
 							}
+							break;
+						}
+						//this means that both of them could move, so not more conflict
+						else{
+//							int critterFightNum = getRandomInt(critter.energy);
+//							int oponentFightNum = getRandomInt(oponent.energy);
+//							if (critter.toString().equals("@")){
+//								critterFightNum = 0;
+//							}
+//							if (oponent.toString().equals("@")){
+//								oponentFightNum = 0;
+//							}
+//							if (critterFightNum > oponentFightNum){
+//								critter.energy += oponent.energy / 2;
+//								oponent.energy = 0;
+//							}else if (critterFightNum < oponentFightNum){
+//								oponent.energy += critter.energy / 2;
+//								critter.energy = 0;
+//							}else{
+//								//arbitrarily chooses a winner
+//								oponent.energy += critter.energy / 2;
+//								critter.energy = 0;
+//							}
 							break;
 						}
 						
@@ -531,13 +556,13 @@ public abstract class Critter {
 		babies.clear();
 		
 		//generate more alage on the board
-		for(int i = 0; i < Params.refresh_algae_count; i ++){
-	        try {
-				Critter.makeCritter("Algae");
-			} catch (InvalidCritterException e) {
-				e.printStackTrace();
-			}
-		}
+//		for(int i = 0; i < Params.refresh_algae_count; i ++){
+//	        try {
+//				Critter.makeCritter("Algae");
+//			} catch (InvalidCritterException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		
 		//remove dead critters from population
 		List<Critter> remove = new java.util.ArrayList<Critter>();

@@ -77,17 +77,17 @@ public class Main {
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
 
-        try {
-        	for(int i = 0; i < 1; i++){
-        		Critter.makeCritter("Craig");
-        	}
-//        	for(int j = 0; j < 100; j++){
+//        try {
+//        	for(int i = 0; i < 1; i++){
+//        		Critter.makeCritter("Craig");
+//        	}
+//        	for(int j = 0; j < 20; j++){
 //        		Critter.makeCritter("Algae");
 //        	}
-		} catch (InvalidCritterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		} catch (InvalidCritterException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
         System.out.println("GLHF");
         
@@ -192,8 +192,11 @@ public class Main {
         			c = Critter.getInstances(reponse[1]);
         			Critter.runStats(c);
         		}
-        		catch (ClassNotFoundException e){
-    				throw new InvalidCritterException(reponse[1]);
+//        		catch (ClassNotFoundException e){
+//    				throw new InvalidCritterException(reponse[1]);
+//        		}
+        		catch (Exception e){
+        			System.out.println("error processing: " + input);
         		}
         		break;
         	default: 
