@@ -65,6 +65,12 @@ public abstract class Critter {
 				this.y_coord += num_steps;
 				break;
 		case 2: this.y_coord += num_steps;
+				if(this.y_coord == 0){
+					System.out.println("2");
+				}
+				if(this.y_coord == 1){
+					System.out.println("1");
+				}
 				break;
 		case 3: this.y_coord += num_steps;
 				this.x_coord -= num_steps;
@@ -84,15 +90,15 @@ public abstract class Critter {
 
 	}
 	
-	private final int wrapX(int x){
-		if(x<0){
-			return Params.world_width - 1;
-		}else if (x == Params.world_width) {
-			return 0;
-		} else {
-			return x;
-		}
-	}
+//	private final int wrapX(int x){
+//		if(x<0){
+//			return Params.world_width - 1;
+//		}else if (x == Params.world_width) {
+//			return 0;
+//		} else {
+//			return x;
+//		}
+//	}
 	private final int wrapY(int y){
 		if (y<0){
 			return Params.world_height -1;
@@ -131,10 +137,10 @@ public abstract class Critter {
 		move(direction, 2, Params.run_energy_cost);
 		switch (this.x_coord){
 			case Params.world_width + 1:
-				this.x_coord = 2;
+				this.x_coord = 1;
 				break;
 			case Params.world_width:
-				this.x_coord  = 1;
+				this.x_coord  = 0;
 				break;
 			case -2:
 				this.x_coord = Params.world_width - 2;
@@ -144,18 +150,25 @@ public abstract class Critter {
 				break;
 		}
 		switch (this.y_coord){
-		case Params.world_height + 1:
-			this.y_coord = 2;
-			break;
-		case Params.world_height:
-			this.y_coord  = 1;
-			break;
-		case -2:
-			this.y_coord = Params.world_height - 2;
-			break;
-		case -1:
-			this.y_coord = Params.world_height - 1;
-			break;
+			case Params.world_height + 1:
+				this.y_coord = 1;
+				break;
+			case Params.world_height:
+				this.y_coord  = 0;
+				break;
+			case -2:
+				//System.out.println("Original: " + this.x_coord + " " + this.y_coord);
+				this.y_coord = Params.world_height - 2;
+				//System.out.println("Supposed: " + this.x_coord + " " + 18);
+				//System.out.println("Actual: " + this.x_coord + " " + this.y_coord);
+				break;
+			case -1:
+				//System.out.println("Original: " + this.x_coord + " " + this.y_coord);
+				this.y_coord = Params.world_height - 1;
+				//System.out.println("Supposed: " + this.x_coord + " " + 19);
+				//System.out.println("Actual: " + this.x_coord + " " + this.y_coord);
+
+				break;
 	}
 	}
 	
@@ -172,7 +185,7 @@ public abstract class Critter {
 		offspring.energy = (int) Math.floor(this.getEnergy() / 2);
 		this.energy = (int) Math.ceil(this.getEnergy() / 2);
 		offspring.x_coord = this.x_coord;
-		offspring.y_coord = this.y_coord + 1;
+		offspring.y_coord = wrapY(this.y_coord + 1);
 		babies.add(offspring);
 	}
 
@@ -355,9 +368,7 @@ public abstract class Critter {
 			}
 			critter.doTimeStep();
 		}
-		System.out.println("before" + population.size());
 		population.addAll(babies);
-		System.out.println("after " + population.size());
 		babies.clear();
 		
 		

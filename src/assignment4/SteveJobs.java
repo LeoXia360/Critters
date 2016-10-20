@@ -9,7 +9,7 @@ package assignment4;
  */
 public class SteveJobs extends Critter{
 	
-	public String toString() { return "S"; }
+	public String toString() { return "J"; }
 	
 	private int dir;
 	

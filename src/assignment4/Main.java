@@ -153,7 +153,7 @@ public class Main {
         		break;
         	
         	case "make":
-        		if (reponse.length < 3){
+        		if (reponse.length > 3){
         			System.out.println("invalid command: " + input);
         		}
         		else{
