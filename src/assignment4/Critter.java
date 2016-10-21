@@ -90,7 +90,7 @@ public abstract class Critter {
 	private final int wrapX(int x){
 		if(x<0){
 			return Params.world_width - 1;
-		}else if (x == Params.world_width) {
+		}else if (x > Params.world_width - 1) {
 			return 0;
 		} else {
 			return x;
@@ -170,29 +170,30 @@ public abstract class Critter {
 		offspring.energy = (int) Math.floor(this.getEnergy() / 2);
 		this.energy = (int) Math.ceil(this.getEnergy() / 2);
 		switch (direction){
-		case 0: this.x_coord += 1;
+		case 0: offspring.x_coord += 1;
 				break;
-		case 1: this.x_coord += 1;
-				this.y_coord -= 1;
+		case 1: offspring.x_coord += 1;
+				offspring.y_coord -= 1;
 				break;
-		case 2: this.y_coord -= 1;
+		case 2: offspring.y_coord -= 1;
 				break;
-		case 3: this.y_coord -= 1;
-				this.x_coord -= 1;
+		case 3: offspring.y_coord -= 1;
+				offspring.x_coord -= 1;
 				break;
-		case 4: this.x_coord -= 1;
+		case 4: offspring.x_coord -= 1;
 				break;
-		case 5: this.x_coord -= 1;
-				this.y_coord += 1;
+		case 5: offspring.x_coord -= 1;
+				offspring.y_coord += 1;
 				break;
-		case 6: this.y_coord += 1;
+		case 6: offspring.y_coord += 1;
 				break;
-		case 7:	this.x_coord += 1;
-				this.y_coord += 1;
+		case 7:	offspring.x_coord += 1;
+				offspring.y_coord += 1;
 				break;
 		}
-		offspring.x_coord = wrapX(this.x_coord);
-		offspring.y_coord = wrapY(this.y_coord);
+		offspring.x_coord = wrapX(offspring.x_coord);
+		offspring.y_coord = wrapY(offspring.y_coord);
+
 		babies.add(offspring);
 	}
 
