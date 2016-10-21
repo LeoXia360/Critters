@@ -99,7 +99,7 @@ public class Main {
         while(!quit){
         	System.out.print("critter> ");
         	String input = kb.nextLine();
-        	String[] reponse = input.split(" ");
+        	String[] reponse = input.trim().split(" ");
         	
         	switch(reponse[0]){
         	case "quit":

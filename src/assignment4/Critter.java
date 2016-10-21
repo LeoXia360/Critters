@@ -469,6 +469,10 @@ public abstract class Critter {
 						
 						//if this evaluates to true, then both the critter and oponent can't leave, so they have to fight
 						if(critterCanNotLeave && oponentCanNotLeave){
+							//if one or both of the critters are dead, then they don't need to fight anymore.
+							if(critter.getEnergy() <= 0 || oponent.getEnergy() <= 0){
+								break;
+							}
 							int critterFightNum = getRandomInt(critter.energy);
 							int oponentFightNum = getRandomInt(oponent.energy);
 							if (critter.toString().equals("@")){
