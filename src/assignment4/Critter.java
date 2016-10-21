@@ -15,7 +15,6 @@ package assignment4;
 import java.lang.reflect.Constructor;
 import java.util.List;
 
-import apple.laf.JRSUIState.TitleBarHeightState;
 
 /* see the PDF for descriptions of the methods and fields in this class
  * you may add fields, methods or inner classes to Critter ONLY if you make your additions private
@@ -155,7 +154,7 @@ public abstract class Critter {
 			this.x_coord = Params.world_width - 1;
 		}
 		
-		}
+		
 	}
 	
 	/**
