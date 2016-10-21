@@ -9,13 +9,13 @@ package assignment4;
  *
  */
 
-public class Leo extends Critter{
+public class Critter1 extends Critter{
 	
-	public String toString() { return "L"; }
+	public String toString() { return "1"; }
 	
 	private int dir;
 	
-	public Leo(){
+	public Critter1(){
 		dir = Critter.getRandomInt(8);
 	}
 
@@ -24,7 +24,7 @@ public class Leo extends Critter{
 		// run in the direction selected
 		run(dir);
 		if (getEnergy() > 100){
-			Leo child = new Leo();
+			Critter1 child = new Critter1();
 			reproduce(child, child.dir);
 		}
 		//set a new random direction

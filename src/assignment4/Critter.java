@@ -538,12 +538,7 @@ public abstract class Critter {
 				}
 			}
 		}
-		
-		for(Critter critter: population){
-				critter.doTimeStep();
-		}
-		population.addAll(babies);
-		babies.clear();
+
 		
 		
 		

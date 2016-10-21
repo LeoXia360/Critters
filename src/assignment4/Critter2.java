@@ -7,13 +7,13 @@ package assignment4;
  * @author Leo
  *
  */
-public class SteveJobs extends Critter{
+public class Critter2 extends Critter{
 	
-	public String toString() { return "J"; }
+	public String toString() { return "2"; }
 	
 	private int dir;
 	
-	public SteveJobs(){
+	public Critter2(){
 		// Steve only moves forward
 		dir = 2;
 	}
@@ -23,7 +23,7 @@ public class SteveJobs extends Critter{
 		// run in the direction selected
 		run(dir);
 		if (getEnergy() > 100){
-			SteveJobs tim_cook = new SteveJobs();
+			Critter2 tim_cook = new Critter2();
 			// Tim only moves backwards :(
 			tim_cook.dir = 6;
 			reproduce(tim_cook, tim_cook.dir);
