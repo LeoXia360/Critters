@@ -49,6 +49,7 @@ public abstract class Critter {
 	
 	private int x_coord;
 	private int y_coord;
+	private boolean move;
 	
 	/**
 	 * Method used for both run and walk
@@ -62,43 +63,39 @@ public abstract class Critter {
 		case 0: this.x_coord += num_steps;
 				break;
 		case 1: this.x_coord += num_steps;
-				this.y_coord += num_steps;
+				this.y_coord -= num_steps;
 				break;
-		case 2: this.y_coord += num_steps;
-				if(this.y_coord == 0){
-					System.out.println("2");
-				}
-				if(this.y_coord == 1){
-					System.out.println("1");
-				}
+		case 2: this.y_coord -= num_steps;
 				break;
-		case 3: this.y_coord += num_steps;
+		case 3: this.y_coord -= num_steps;
 				this.x_coord -= num_steps;
 				break;
 		case 4: this.x_coord -= num_steps;
 				break;
 		case 5: this.x_coord -= num_steps;
-				this.y_coord -= num_steps;
+				this.y_coord += num_steps;
 				break;
-		case 6: this.y_coord -= num_steps;
+		case 6: this.y_coord += num_steps;
 				break;
 		case 7:	this.x_coord += num_steps;
-				this.y_coord -= num_steps;
+				this.y_coord += num_steps;
 				break;
-	}
+		}
 		this.energy -= energy_cost;
+		this.move = true;
 
 	}
 	
-//	private final int wrapX(int x){
-//		if(x<0){
-//			return Params.world_width - 1;
-//		}else if (x == Params.world_width) {
-//			return 0;
-//		} else {
-//			return x;
-//		}
-//	}
+	private final int wrapX(int x){
+		if(x<0){
+			return Params.world_width - 1;
+		}else if (x == Params.world_width) {
+			return 0;
+		} else {
+			return x;
+		}
+	}
+	
 	private final int wrapY(int y){
 		if (y<0){
 			return Params.world_height -1;
@@ -167,9 +164,8 @@ public abstract class Critter {
 				this.y_coord = Params.world_height - 1;
 				//System.out.println("Supposed: " + this.x_coord + " " + 19);
 				//System.out.println("Actual: " + this.x_coord + " " + this.y_coord);
-
 				break;
-	}
+		}
 	}
 	
 	/**
@@ -184,8 +180,30 @@ public abstract class Critter {
 		}
 		offspring.energy = (int) Math.floor(this.getEnergy() / 2);
 		this.energy = (int) Math.ceil(this.getEnergy() / 2);
-		offspring.x_coord = this.x_coord;
-		offspring.y_coord = wrapY(this.y_coord + 1);
+		switch (direction){
+		case 0: this.x_coord += 1;
+				break;
+		case 1: this.x_coord += 1;
+				this.y_coord -= 1;
+				break;
+		case 2: this.y_coord -= 1;
+				break;
+		case 3: this.y_coord -= 1;
+				this.x_coord -= 1;
+				break;
+		case 4: this.x_coord -= 1;
+				break;
+		case 5: this.x_coord -= 1;
+				this.y_coord += 1;
+				break;
+		case 6: this.y_coord += 1;
+				break;
+		case 7:	this.x_coord += 1;
+				this.y_coord += 1;
+				break;
+		}
+		offspring.x_coord = wrapX(this.x_coord);
+		offspring.y_coord = wrapY(this.y_coord);
 		babies.add(offspring);
 	}
 
@@ -360,38 +378,173 @@ public abstract class Critter {
 	}
 	
 	public static void worldTimeStep() {
+		//set move to false for when a new time step is done
+		for(Critter critter: population){
+			critter.move = false;
+		}
 		
+
+		//do time step
+		for(Critter critter: population){
+			critter.doTimeStep();
+		}
+		
+		//fight
 		for(Critter critter: population){
 			for(Critter oponent: population){
+				//1. if more than one critter occupies the same space
+				//2. Critter != Oponent 
+				//3. Critter is alive
 				if(critter.x_coord == oponent.x_coord && 
 						critter.y_coord == oponent.y_coord && 
 						population.indexOf(critter) != population.indexOf(oponent) &&
 						(critter.energy > 0) && (oponent.energy > 0)
 						){
 					
+					//get their current location and if they have moved, because when calling fight, they would have already moved
+					int critterXTemp = critter.x_coord;
+					int critterYTemp = critter.y_coord;
+					int oponentXTemp = oponent.x_coord;
+					int oponentYTemp = oponent.y_coord;
+					boolean critterMove = critter.move;
+					boolean oponentMove = oponent.move;
+					
 					//are the critters and oponents gonna fight?
 					boolean cFight = critter.fight(oponent.toString());
 					boolean oFight = oponent.fight(critter.toString());
-					int critterFightNum = getRandomInt(critter.energy);
-					int oponentFightNum = getRandomInt(oponent.energy);
-					//if they're not fighting then set they're num to 0
-					if (!cFight){critterFightNum = 0;}
-					if (!oFight){oponentFightNum = 0;}
-					if (oponentFightNum == 0 && critterFightNum == 0){
-						//break if both decide to run/walk away
+					
+					//both the critter and oponent want to fight
+					if (cFight && oFight){
+						int critterFightNum = getRandomInt(critter.energy);
+						int oponentFightNum = getRandomInt(oponent.energy);
+						if (critterFightNum > oponentFightNum){
+							critter.energy += oponent.energy / 2;
+							oponent.energy = 0;
+						}else if (critterFightNum < oponentFightNum){
+							oponent.energy += critter.energy / 2;
+							critter.energy = 0;
+						}else{
+							//arbitrarily chooses a winner
+							oponent.energy += critter.energy / 2;
+							critter.energy = 0;
+						}
 						break;
 					}
-					if (critterFightNum > oponentFightNum){
-						critter.energy += oponent.energy / 2;
-						oponent.energy = 0;
-					}else if (critterFightNum < oponentFightNum){
-						oponent.energy += critter.energy / 2;
-						critter.energy = 0;
-					}else{
-						//arbitrarily chooses a winner
-						oponent.energy += critter.energy / 2;
-						critter.energy = 0;
+					else{
+						//these fields lets us know whether or if either the critter or oponent could not leave
+						boolean critterCanNotLeave = false;
+						boolean oponentCanNotLeave = false;
+						
+						//critter wants to leave
+						if(cFight == false){
+							//critter didn't move during the doTimeStep
+							if(critterMove == false){
+								//if this for loop is reached, that means the critter can move, now to see if there's a space open for it.
+								for (Critter i: population){
+									//checks to see if the spot that the critter ran during fight is already occupied
+									if((critter.x_coord == i.x_coord) && (critter.y_coord == i.y_coord) && (population.indexOf(critter) != population.indexOf(i)) && (i.getEnergy() > 0)){
+										//move the critter back to its original place
+										critter.x_coord = critterXTemp;
+										critter.y_coord = critterYTemp;
+										critter.move = false;
+										critterCanNotLeave = true;
+										break;
+									}
+								}
+							}
+						}
+						else if(cFight == true){
+							critterCanNotLeave = true;
+						}
+						
+						if(oFight == false){
+							//critter didn't move during the doTimeStep
+							if(oponentMove == false){
+								for (Critter i: population){
+									//checks to see if the spot that the critter ran during fight is already occupied
+									if((oponent.x_coord == i.x_coord) && (oponent.y_coord == i.y_coord) && (population.indexOf(oponent) != population.indexOf(i)) && (i.getEnergy() > 0)){
+										//move the critter back to its original place
+										oponent.x_coord = oponentXTemp;
+										oponent.y_coord = oponentYTemp;
+										oponent.move = false;
+										oponentCanNotLeave = true;
+										break;
+									}
+								}
+							}
+						}
+						else if(oFight == true){
+							oponentCanNotLeave = true;
+						}
+						
+						//if this evaluates to true, then both the critter and oponent can't leave, so they have to fight
+						if(critterCanNotLeave && oponentCanNotLeave){
+							int critterFightNum = getRandomInt(critter.energy);
+							int oponentFightNum = getRandomInt(oponent.energy);
+							if (critter.toString().equals("@")){
+								critterFightNum = 0;
+							}
+							if (oponent.toString().equals("@")){
+								oponentFightNum = 0;
+							}
+							if (critterFightNum > oponentFightNum){
+								critter.energy += oponent.energy / 2;
+								oponent.energy = 0;
+							}else if (critterFightNum < oponentFightNum){
+								oponent.energy += critter.energy / 2;
+								critter.energy = 0;
+							}else{
+								//arbitrarily chooses a winner
+								oponent.energy += critter.energy / 2;
+								critter.energy = 0;
+							}
+							break;
+						}
+						//this means that both of them could move, so not more conflict
+						else{
+//							int critterFightNum = getRandomInt(critter.energy);
+//							int oponentFightNum = getRandomInt(oponent.energy);
+//							if (critter.toString().equals("@")){
+//								critterFightNum = 0;
+//							}
+//							if (oponent.toString().equals("@")){
+//								oponentFightNum = 0;
+//							}
+//							if (critterFightNum > oponentFightNum){
+//								critter.energy += oponent.energy / 2;
+//								oponent.energy = 0;
+//							}else if (critterFightNum < oponentFightNum){
+//								oponent.energy += critter.energy / 2;
+//								critter.energy = 0;
+//							}else{
+//								//arbitrarily chooses a winner
+//								oponent.energy += critter.energy / 2;
+//								critter.energy = 0;
+//							}
+							break;
+						}
+						
 					}
+//					int critterFightNum = getRandomInt(critter.energy);
+//					int oponentFightNum = getRandomInt(oponent.energy);
+//					//if they're not fighting then set they're num to 0
+//					if (!cFight){critterFightNum = 0;}
+//					if (!oFight){oponentFightNum = 0;}
+//					if (oponentFightNum == 0 && critterFightNum == 0){
+//						//break if both decide to run/walk away
+//						break;
+//					}
+//					if (critterFightNum > oponentFightNum){
+//						critter.energy += oponent.energy / 2;
+//						oponent.energy = 0;
+//					}else if (critterFightNum < oponentFightNum){
+//						oponent.energy += critter.energy / 2;
+//						critter.energy = 0;
+//					}else{
+//						//arbitrarily chooses a winner
+//						oponent.energy += critter.energy / 2;
+//						critter.energy = 0;
+//					}
 				}
 			}
 		}
@@ -410,14 +563,18 @@ public abstract class Critter {
 			critter.energy -= Params.rest_energy_cost;
 		}
 		
+		//add babies to the population
+		population.addAll(babies);
+		babies.clear();
+		
 		//generate more alage on the board
-		for(int i = 0; i < Params.refresh_algae_count; i ++){
-	        try {
-				Critter.makeCritter("Algae");
-			} catch (InvalidCritterException e) {
-				e.printStackTrace();
-			}
-		}
+//		for(int i = 0; i < Params.refresh_algae_count; i ++){
+//	        try {
+//				Critter.makeCritter("Algae");
+//			} catch (InvalidCritterException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		
 		//remove dead critters from population
 		List<Critter> remove = new java.util.ArrayList<Critter>();
