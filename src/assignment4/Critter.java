@@ -132,20 +132,16 @@ public abstract class Critter {
 	 */
 	protected final void run(int direction) {
 		move(direction, 2, Params.run_energy_cost);
-		switch (this.x_coord){
-			case Params.world_width + 1:
-				this.x_coord = 1;
-				break;
-			case Params.world_width:
-				this.x_coord  = 0;
-				break;
-			case -2:
-				this.x_coord = Params.world_width - 2;
-				break;
-			case -1:
-				this.x_coord = Params.world_width - 1;
-				break;
-		}
+		int worldWidthPlusOne = Params.world_width + 1;
+		
+		if (this.x_coord == Params.world_height + 1)
+			this.x_coord = 1;
+		else if(this.x_coord == Params.world_width)
+			this.x_coord = 0;
+		else if(this.x_coord == -2)
+			this.x_coord = Params.world_width - 2;
+		else if(this.x_coord == -1)
+			this.x_coord = Params.world_width - 1;
 		switch (this.y_coord){
 			case Params.world_height + 1:
 				this.y_coord = 1;
