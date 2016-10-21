@@ -1,8 +1,8 @@
 /* CRITTERS Critter.java
  * EE422C Project 4 submission by
  * Replace <...> with your actual data.
- * <Student1 Name>
- * <Student1 EID>
+ * Leo Xia
+ * Lx939
  * <Student1 5-digit Unique No.>
  * <Student2 Name>
  * <Student2 EID>
@@ -14,6 +14,8 @@ package assignment4;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
+
+import apple.laf.JRSUIState.TitleBarHeightState;
 
 /* see the PDF for descriptions of the methods and fields in this class
  * you may add fields, methods or inner classes to Critter ONLY if you make your additions private
@@ -132,6 +134,7 @@ public abstract class Critter {
 	 */
 	protected final void run(int direction) {
 		move(direction, 2, Params.run_energy_cost);
+		
 		switch (this.x_coord){
 			case Params.world_width + 1:
 				this.x_coord = 1;
@@ -146,25 +149,14 @@ public abstract class Critter {
 				this.x_coord = Params.world_width - 1;
 				break;
 		}
-		switch (this.y_coord){
-			case Params.world_height + 1:
-				this.y_coord = 1;
-				break;
-			case Params.world_height:
-				this.y_coord  = 0;
-				break;
-			case -2:
-				//System.out.println("Original: " + this.x_coord + " " + this.y_coord);
-				this.y_coord = Params.world_height - 2;
-				//System.out.println("Supposed: " + this.x_coord + " " + 18);
-				//System.out.println("Actual: " + this.x_coord + " " + this.y_coord);
-				break;
-			case -1:
-				//System.out.println("Original: " + this.x_coord + " " + this.y_coord);
-				this.y_coord = Params.world_height - 1;
-				//System.out.println("Supposed: " + this.x_coord + " " + 19);
-				//System.out.println("Actual: " + this.x_coord + " " + this.y_coord);
-				break;
+		if (this.y_coord == Params.world_height + 1){
+			this.y_coord = 1;
+		}else if (this.y_coord == Params.world_height){
+			this.y_coord = 0;
+		}else if (this.y_coord == -2){
+			this.y_coord = Params.world_height -2;
+		}else if (this.y_coord == -1){
+			this.y_coord = Params.world_height -1;
 		}
 	}
 	
