@@ -11,6 +11,7 @@ public class Craig extends Critter {
 	private static final int GENE_TOTAL = 24;
 	private int[] genes = new int[8];
 	private int dir;
+	
 	public Craig() {
 		for (int k = 0; k < 8; k += 1) {
 			genes[k] = GENE_TOTAL / 8;
@@ -18,7 +19,7 @@ public class Craig extends Critter {
 		dir = Critter.getRandomInt(8);
 	}
 	
-	public boolean fight(String not_used) {System.out.println("fight"); return true; }
+	public boolean fight(String not_used) { return true; }
 
 	@Override
 	public void doTimeStep() {

@@ -9,25 +9,27 @@ package assignment4;
  * @author Kevin
  *
  */
-public class Test extends Critter {
+public class Critter4 extends Critter {
 	
 	@Override
-	public String toString() { return "T"; }
+	public String toString() { return "4"; }
 	
 	private static final int GENE_TOTAL = 24;
 	private int[] genes = new int[8];
 	private int dir;
-	public Test() {
+	public Critter4() {
 		for (int k = 0; k < 8; k += 1) {
 			genes[k] = GENE_TOTAL / 8;
 		}
-		dir = 3;
+		dir = 0;
 	}
 
 	@Override
 	public void doTimeStep() {
 		/* take one step forward */
-		walk(dir);
+		run(dir);
+		
+		dir = (dir + 2) % 8;
 	}
 	
 	public boolean fight(String oponent) {

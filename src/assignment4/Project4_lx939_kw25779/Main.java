@@ -19,8 +19,6 @@ import javax.xml.ws.Response;
 
 import java.io.*;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.*;
-
 
 
 /*
@@ -189,24 +187,15 @@ public class Main {
         			break;
         		}
         		try {
-        			Class<?> c = Class.forName(myPackage + "."+ reponse[1]);
-        			Class<?>[] types = {List.class};
-        			List<Critter> l = Critter.getInstances(reponse[1]);
-        			Method m = c.getMethod("runStats", types);
-  
-        			m.invoke(null, l);
-        			
-        			
-        			
-        			/*List<Critter> c = new ArrayList<Critter>();
+        			Class.forName(myPackage + "."+ reponse[1]);
+        			List<Critter> c = new ArrayList<Critter>();
         			c = Critter.getInstances(reponse[1]);
-        			Critter.runStats(c);*/
+        			Critter.runStats(c);
         		}
 //        		catch (ClassNotFoundException e){
 //    				throw new InvalidCritterException(reponse[1]);
 //        		}
         		catch (Exception e){
-        			e.printStackTrace();
         			System.out.println("error processing: " + input);
         		}
         		break;
