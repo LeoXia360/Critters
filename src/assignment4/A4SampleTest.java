@@ -163,8 +163,13 @@ public class A4SampleTest{
 		String fileFolder = "empty_world";
 		String[] inputs = {TESTSRCDIR + fileFolder + "/input.txt" ,"test"};
 		
-		
+		try{
 		Main.main(inputs);
+		}catch (InvalidCritterException e){
+			System.out.println("Invalid Critter Exception");
+		}catch (ClassNotFoundException e ){
+			System.out.println("Class Not Found Exception");
+		}
 		outContent = Main.testOutputString;
 		
 		
