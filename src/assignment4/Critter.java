@@ -492,49 +492,10 @@ public abstract class Critter {
 						}
 						//this means that both of them could move, so not more conflict
 						else{
-//							int critterFightNum = getRandomInt(critter.energy);
-//							int oponentFightNum = getRandomInt(oponent.energy);
-//							if (critter.toString().equals("@")){
-//								critterFightNum = 0;
-//							}
-//							if (oponent.toString().equals("@")){
-//								oponentFightNum = 0;
-//							}
-//							if (critterFightNum > oponentFightNum){
-//								critter.energy += oponent.energy / 2;
-//								oponent.energy = 0;
-//							}else if (critterFightNum < oponentFightNum){
-//								oponent.energy += critter.energy / 2;
-//								critter.energy = 0;
-//							}else{
-//								//arbitrarily chooses a winner
-//								oponent.energy += critter.energy / 2;
-//								critter.energy = 0;
-//							}
 							break;
 						}
 						
 					}
-//					int critterFightNum = getRandomInt(critter.energy);
-//					int oponentFightNum = getRandomInt(oponent.energy);
-//					//if they're not fighting then set they're num to 0
-//					if (!cFight){critterFightNum = 0;}
-//					if (!oFight){oponentFightNum = 0;}
-//					if (oponentFightNum == 0 && critterFightNum == 0){
-//						//break if both decide to run/walk away
-//						break;
-//					}
-//					if (critterFightNum > oponentFightNum){
-//						critter.energy += oponent.energy / 2;
-//						oponent.energy = 0;
-//					}else if (critterFightNum < oponentFightNum){
-//						oponent.energy += critter.energy / 2;
-//						critter.energy = 0;
-//					}else{
-//						//arbitrarily chooses a winner
-//						oponent.energy += critter.energy / 2;
-//						critter.energy = 0;
-//					}
 				}
 			}
 		}
@@ -553,13 +514,13 @@ public abstract class Critter {
 		babies.clear();
 		
 		//generate more alage on the board
-//		for(int i = 0; i < Params.refresh_algae_count; i ++){
-//	        try {
-//				Critter.makeCritter("Algae");
-//			} catch (InvalidCritterException e) {
-//				e.printStackTrace();
-//			}
-//		}
+		for(int i = 0; i < Params.refresh_algae_count; i ++){
+	        try {
+				Critter.makeCritter("Algae");
+			} catch (InvalidCritterException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		//remove dead critters from population
 		List<Critter> remove = new java.util.ArrayList<Critter>();
