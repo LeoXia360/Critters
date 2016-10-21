@@ -361,17 +361,6 @@ public abstract class Critter {
 	
 	public static void worldTimeStep() {
 		
-		
-		for(Critter critter: population){
-			if (critter.toString().equals("C")){
-				System.out.println(critter.getEnergy());
-			}
-			critter.doTimeStep();
-		}
-		population.addAll(babies);
-		babies.clear();
-		
-		
 		for(Critter critter: population){
 			for(Critter oponent: population){
 				if(critter.x_coord == oponent.x_coord && 
@@ -406,6 +395,15 @@ public abstract class Critter {
 				}
 			}
 		}
+		
+		for(Critter critter: population){
+				critter.doTimeStep();
+		}
+		population.addAll(babies);
+		babies.clear();
+		
+		
+		
 		
 		//deduct the rest energy from all critters
 		for(Critter critter: population){
