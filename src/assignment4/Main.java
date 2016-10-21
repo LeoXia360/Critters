@@ -50,7 +50,7 @@ public class Main {
      * @throws InvalidCritterException 
      * @throws ClassNotFoundException 
      */
-    public static void main(String[] args) throws ClassNotFoundException, InvalidCritterException { 
+    public static void main(String[] args) { 
         if (args.length != 0) {
             try {
                 inputFile = args[0];
@@ -78,7 +78,7 @@ public class Main {
 
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
-
+/*
         try {
         	for(int i = 0; i < 25; i++){
         		Critter.makeCritter("Craig");
@@ -90,8 +90,8 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-        System.out.println("GLHF");
+*/
+        //System.out.println("GLHF");
         
         //Controller Component
         boolean quit = false;
@@ -107,7 +107,7 @@ public class Main {
         			System.out.println("error processing: " + input);
         		}
         		else{
-        			System.exit(0);
+        			quit = true;
         		}
         		break;
         	
