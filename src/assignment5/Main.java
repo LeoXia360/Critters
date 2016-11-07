@@ -93,12 +93,36 @@ public class Main extends Application{
         	@Override
         	public void handle(ActionEvent event) {
         		try{
-            		System.out.println("Create Critter");
-            		int amount = Integer.parseInt(critterAmount.getText());
-            		System.out.println(amount);
+            		String critter = (String)critterComboBox.getValue();
+            		if (critter == null){
+            			StackPane pane1 = new StackPane();
+            			Label critterError = new Label("A critter has not been selected to add to the World.");
+            			pane1.getChildren().add(critterError);
+            			Stage critterErrorStage = new Stage();
+            			critterErrorStage.setTitle("Critter Error");
+            			Scene scene2 = new Scene(pane1, 300, 50);
+            			critterErrorStage.setScene(scene2);
+            			critterErrorStage.show();
+            			int amount = Integer.parseInt(critterAmount.getText());
+                		System.out.println(amount);
+            		}
+            		else{
+            			/*
+            			 * Need to add functionanlity to this part to actually add critters.
+            			 */
+            			int amount = Integer.parseInt(critterAmount.getText());
+                		System.out.println(amount);
+            		}
         		}
         		catch (NumberFormatException e){
-    				System.out.println("error processing " + "'" + critterAmount.getText() + "'" + " in setting amount of Critters");
+        			StackPane pane2 = new StackPane();
+        			Label NumberError = new Label("Error processing " + "'" + critterAmount.getText() + "'" + " in setting amount of Critters");
+        			pane2.getChildren().add(NumberError);
+        			Stage NumberErrorStage = new Stage();
+        			NumberErrorStage.setTitle("Critter Amount Error");
+        			Scene scene3 = new Scene(pane2, 300, 50);
+        			NumberErrorStage.setScene(scene3);
+        			NumberErrorStage.show();
     			}
         	}
         });
@@ -111,6 +135,7 @@ public class Main extends Application{
         	@Override
         	public void handle(ActionEvent event) {
         		System.out.println("Single");
+        		Critter.worldTimeStep();
         	}
         });
         grid2.add(singleTimeStepButton, 0, 8);
@@ -125,10 +150,20 @@ public class Main extends Application{
         		try{
         			System.out.println("Multiple");
             		int amount = Integer.parseInt(timeStepAmount.getText());
+            		for (int i = 0; i < amount; i++){
+            			Critter.worldTimeStep();
+            		}
             		System.out.println(amount);	
         		}
         		catch (NumberFormatException e){
-    				System.out.println("error processing " + "'" + timeStepAmount.getText() + "'" + " in setting amount of Time Steps");
+        			StackPane pane4 = new StackPane();
+        			Label NumberError = new Label("Error processing " + "'" + timeStepAmount.getText() + "'" + " in setting amount of Time Steps");
+        			pane4.getChildren().add(NumberError);
+        			Stage NumberErrorStage = new Stage();
+        			NumberErrorStage.setTitle("Time Step Amount Error");
+        			Scene scene4 = new Scene(pane4, 300, 50);
+        			NumberErrorStage.setScene(scene4);
+        			NumberErrorStage.show();
     			}
         	}
         });
@@ -151,7 +186,14 @@ public class Main extends Application{
             		Critter.setSeed(amount);
         		}
         		catch (NumberFormatException e){
-    				System.out.println("error processing " +  "'" + seedAmount.getText() + "'" + " in setting amount for Seed");
+    				StackPane pane5 = new StackPane();
+        			Label NumberError = new Label("Error processing " +  "'" + seedAmount.getText() + "'" + " in setting amount for Seed");
+        			pane5.getChildren().add(NumberError);
+        			Stage NumberErrorStage = new Stage();
+        			NumberErrorStage.setTitle("Seed Amount Error");
+        			Scene scene4 = new Scene(pane5, 300, 50);
+        			NumberErrorStage.setScene(scene4);
+        			NumberErrorStage.show();
     			}
         	}
         });
@@ -171,6 +213,18 @@ public class Main extends Application{
         	@Override
         	public void handle(ActionEvent event) {
         		System.out.println("Start");
+        		String animation = (String)animationSpeedBox.getValue();
+        		System.out.println(animation);
+        		if (animation == null){
+        			StackPane pane6 = new StackPane();
+        			Label animationError = new Label("Animation speed has not been selected");
+        			pane6.getChildren().add(animationError);
+        			Stage animationErrorStage = new Stage();
+        			animationErrorStage.setTitle("Critter Error");
+        			Scene scene5 = new Scene(pane6, 300, 50);
+        			animationErrorStage.setScene(scene5);
+        			animationErrorStage.show();
+        		}
         	}
         });
         grid2.add(startButton, 2, 23);
@@ -184,10 +238,10 @@ public class Main extends Application{
         });
         grid2.add(stopButton, 3, 23);
         
-        primaryStage.setScene(new Scene(grid2, 600, 450));
-        primaryStage.show();
-
-		
+        Stage secondStage = new Stage();
+		secondStage.setTitle("Second Stage");
+		secondStage.setScene(new Scene(grid2, 600, 450));
+		secondStage.show();
 	}
 
 }
