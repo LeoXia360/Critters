@@ -68,8 +68,18 @@ public class Main extends Application{
 	    Critter.displayWorld();
 	    Stage secondStage = new Stage();
 		secondStage.setTitle("Second Stage");
+		
+		new AnimationTimer(){
+			@Override
+			public void handle(long now){
+				if (now%100 == 0){
+					Critter.displayWorld();
+					Critter.worldTimeStep();
+				}
+			}
+		}.start();
 
-		System.out.println("done");
+//		System.out.println("done");
 		
 	}
 
