@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.ws.Response;
 
+import java.util.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,11 +30,47 @@ public class Main extends Application{
 	static double animationSpeed = 1.0;
 	static boolean amRunning = false;
 	static Toolkit toolkit;
+	static ArrayList<Class> valid_critters = new ArrayList<Class>();
+    private static String myPackage;	// package of Critter file.  Critter cannot be in default pkg.
+
+    static {
+        myPackage = Critter.class.getPackage().toString().split(" ")[1];
+    }
 	
-	public static void main(String[] args) {
-		// launch(args);
-		launch(args);
+	
+	
+	
+	public static void main(String[] args) throws ClassNotFoundException, InvalidCritterException { 
+		//System.out.println(Critter.class.getPackage().getName());
+		//List<Class<?>> cls = ClassFinder.find("assignment5");		
+		//System.out.println(cls);
+
+		
+		List<String> results = new ArrayList<String>();
+		List<Class> class_results = new ArrayList<Class>();
+
+		File[] files = new File("src/assignment5").listFiles();
+		//If this pathname does not denote a directory, then listFiles() returns null. 
+		System.out.println("Working Directory = " +
+	              System.getProperty("user.dir"));
+
+		for (File file : files) {
+		    if (file.isFile() && file.toString().endsWith(".java")) {
+		        results.add(file.getName().substring(0, file.getName().indexOf(".")));
+		        //System.out.println(file.getName().substring(0, file.getName().indexOf(".")));
+		        
+		        //something is wrong with my class path name
+		        Class<?> c = Class.forName(myPackage + "." + file.getName());
+		        System.out.println(c.getSuperclass());
+		        System.out.println(c);
+		    }
+		}
+		System.out.println(results);
+		
+		
+		//launch(args);
 	}
+	
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -77,7 +115,8 @@ public class Main extends Application{
 //        ColumnConstraints c4 = new ColumnConstraints();
 //        c4.setPercentWidth(25);
 //        grid2.getColumnConstraints().addAll(c1, c2, c3, c4);
-		final ComboBox critterComboBox = new ComboBox();
+    
+		final ComboBox<String> critterComboBox = new ComboBox<String>();
 		critterComboBox.getItems().addAll(
 			"Craig",
 			"Algaephogic"
@@ -159,7 +198,7 @@ public class Main extends Application{
        
         grid2.add(new Label("Animation:"), 0, 22);
         grid2.add(new Label("Speed"), 0, 23);
-        final ComboBox animationSpeedBox = new ComboBox();
+        final ComboBox<String> animationSpeedBox = new ComboBox<String>();
         animationSpeedBox.getItems().addAll(
 			"1x",
 			"2x"
