@@ -54,7 +54,83 @@ public abstract class Critter {
 		myPackage = Critter.class.getPackage().toString().split(" ")[1];
 	}
 	
-	protected String look(int direction, boolean steps) {return "";}
+	protected String look(int direction, boolean steps) {
+		//false == 1 step
+		//true == 2 steps
+		int num_steps = 1;
+		if(steps){num_steps = 2;}
+		int looking_x = this.x_coord;
+		int looking_y = this.y_coord;
+		
+		//adding to the x and y coord 
+		switch (direction){
+		case 0: looking_x = this.x_coord + num_steps;
+				break;
+		case 1: looking_x = this.x_coord + num_steps;
+				looking_y = this.y_coord - num_steps;
+				break;
+		case 2: looking_y = this.y_coord - num_steps;
+				break;
+		case 3: looking_y = this.y_coord - num_steps;
+				looking_x = this.x_coord - num_steps;
+				break;
+		case 4: looking_x = this.x_coord - num_steps;
+				break;
+		case 5: looking_x = this.x_coord - num_steps;
+				looking_y = this.y_coord + num_steps;
+				break;
+		case 6: looking_y = this.y_coord + num_steps;
+				break;
+		case 7:	looking_x = this.x_coord + num_steps;
+				looking_y = this.y_coord + num_steps;
+				break;
+		}
+		
+		//wrap x and y coord
+		if(!steps){
+			if(looking_x >= Params.world_width -1){
+			looking_x = 0;
+			}
+			if(looking_x < 0){
+				looking_x = Params.world_width -1;
+			}
+			if(looking_y >= Params.world_height-1){
+				looking_y = 0;
+			}
+			if(looking_y < 0){
+				looking_y = Params.world_height -1;
+			}
+		}else{
+			if (looking_y == Params.world_height + 1){
+				looking_y = 1;
+			}else if (looking_y == Params.world_height){
+				looking_y = 0;
+			}else if (looking_y == -2){
+				looking_y = Params.world_height -2;
+			}else if (looking_y == -1){
+				looking_y = Params.world_height -1;
+			}
+			
+			if (looking_x == Params.world_height + 1){
+				looking_x = 1;
+			}else if(looking_x == Params.world_width){
+				looking_x = 0;
+			}else if(looking_x == -2){
+				looking_x = Params.world_width - 2;
+			}else if(looking_x == -1){
+				looking_x = Params.world_width - 1;
+			}
+			
+		}
+		
+		//checking to see if there is an occupant that has same x and y coord
+		for(Critter occupant: population){
+				if(looking_x == occupant.x_coord && looking_y == occupant.y_coord){
+					return occupant.toString();
+				}
+		}
+		return null;
+	}
 	
 	/* rest is unchanged from Project 4 */
 	
