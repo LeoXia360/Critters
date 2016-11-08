@@ -80,8 +80,8 @@ public class Main extends Application{
 		        
 		    }
 		}
-		//System.out.println(critter_string);
-		//System.out.println(results);
+		System.out.println(critter_string);
+		System.out.println(results);
 	}
 	
 	
@@ -100,6 +100,7 @@ public class Main extends Application{
 			e.printStackTrace();
 		}
 		
+		Critter.displayWorld();
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Grid");
 		primaryStage.show();
@@ -129,10 +130,18 @@ public class Main extends Application{
 //        c4.setPercentWidth(25);
 //        grid2.getColumnConstraints().addAll(c1, c2, c3, c4);
     
-		final ComboBox<String> critterComboBox = new ComboBox<String>();
+        ColumnConstraints c1 = new ColumnConstraints();
+        c1.setPercentWidth(25);
+        ColumnConstraints c2 = new ColumnConstraints();
+        c2.setPercentWidth(25);
+        ColumnConstraints c3 = new ColumnConstraints();
+        c3.setPercentWidth(25);
+        ColumnConstraints c4 = new ColumnConstraints();
+        c4.setPercentWidth(25);
+        grid2.getColumnConstraints().addAll(c1, c2, c3, c4);
+		final ComboBox critterComboBox = new ComboBox();
 		critterComboBox.getItems().addAll(
-			"Craig",
-			"Algaephogic"
+			critter_string
 		);
         grid2.add(new Label("Make Critter: "), 0, 0);
         grid2.add(critterComboBox, 0, 1);
@@ -163,7 +172,21 @@ public class Main extends Application{
             			 * Need to add functionanlity to this part to actually add critters.
             			 */
             			int amount = Integer.parseInt(critterAmount.getText());
-                		System.out.println(amount);
+            			for (int i = 0; i < amount; i++){
+            				try{
+            					Critter.makeCritter((String)critterComboBox.getValue());
+            				}	catch(InvalidCritterException e){
+        						System.out.println("error processing: ");
+        					}
+        					catch (Exception e){
+        						System.out.println("error processing: ");
+        					}
+            			}
+                		System.out.println(critterComboBox.getValue());
+                		Critter.displayWorld();
+                		primaryStage.setScene(scene);
+                		primaryStage.setTitle("Grid");
+                		primaryStage.show();
             		}
         		}
         		catch (NumberFormatException e){
@@ -186,8 +209,11 @@ public class Main extends Application{
         singleTimeStepButton.setOnAction(new EventHandler<ActionEvent>(){
         	@Override
         	public void handle(ActionEvent event) {
-        		System.out.println("Single");
         		Critter.worldTimeStep();
+        		Critter.displayWorld();
+        		primaryStage.setScene(scene);
+        		primaryStage.setTitle("Grid");
+        		primaryStage.show();
         	}
         });
         grid2.add(singleTimeStepButton, 0, 8);
@@ -200,12 +226,14 @@ public class Main extends Application{
         	@Override
         	public void handle(ActionEvent event) {
         		try{
-        			System.out.println("Multiple");
             		int amount = Integer.parseInt(timeStepAmount.getText());
             		for (int i = 0; i < amount; i++){
             			Critter.worldTimeStep();
             		}
-            		System.out.println(amount);	
+            		Critter.displayWorld();
+            		primaryStage.setScene(scene);
+            		primaryStage.setTitle("Grid");
+            		primaryStage.show();
         		}
         		catch (NumberFormatException e){
         			StackPane pane4 = new StackPane();
@@ -253,11 +281,8 @@ public class Main extends Application{
        
         grid2.add(new Label("Animation:"), 0, 22);
         grid2.add(new Label("Speed"), 0, 23);
-        final ComboBox<String> animationSpeedBox = new ComboBox<String>();
-        animationSpeedBox.getItems().addAll(
-			"1x",
-			"2x"
-		);
+        final ComboBox animationSpeedBox = new ComboBox();
+        animationSpeedBox.getItems().addAll("1x", "2x", "5x", "10x", "20x", "50x", "100x");
         grid2.add(animationSpeedBox, 1, 23);
         Button startButton = new Button();
         startButton.setText("Start");
@@ -295,5 +320,4 @@ public class Main extends Application{
 		secondStage.setScene(new Scene(grid2, 600, 450));
 		secondStage.show();
 	}
-
 }

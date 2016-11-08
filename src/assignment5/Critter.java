@@ -156,7 +156,7 @@ public abstract class Critter {
 	private int x_coord;
 	private int y_coord;
 	private boolean move;
-	private static int size = 20;
+	private static int size = 18;
 	
 	/**
 	 * Method used for both run and walk
