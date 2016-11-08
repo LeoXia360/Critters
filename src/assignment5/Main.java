@@ -105,6 +105,11 @@ public class Main extends Application{
 		primaryStage.setTitle("Grid");
 		primaryStage.show();
 		
+//		Timer time = new Timer();
+//		ScheduleTask st = new ScheduleTask();
+//		time.schedule(st, 0, 1000);
+		
+		
 //		new AnimationTimer(){
 //			@Override
 //			public void handle(long now){

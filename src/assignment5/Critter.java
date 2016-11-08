@@ -502,10 +502,10 @@ public abstract class Critter {
 			case DIAMOND:
 				Polygon diamond = new Polygon();
 				diamond.getPoints().addAll(new Double[]{
-						(double)(size/2), 0.0,
-						0.0, (double)(size/2),
-						(double)(size/2), (double)size,
-						(double)size, (double)size/2 });
+						(double)(size/2), 1.0,
+						1.0, (double)(size/2),
+						(double)(size/2), (double)size-1.0,
+						(double)size-1.0, (double)size/2 });
 				diamond.setFill(critter.viewOutlineColor());
 				diamond.setStroke(critter.viewOutlineColor());
 				Main.grid.add(diamond, critter.x_coord, critter.y_coord);
