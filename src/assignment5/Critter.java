@@ -482,6 +482,16 @@ public abstract class Critter {
 				break;
 				
 			case SQUARE: 
+//				Polygon square = new Polygon();
+//				square.getPoints().addAll(new Double[]{
+//						2.0, 2.0,
+//						2.0, (double)size-2.0,
+//						(double)size-2.0, (double)size-2.0,
+//						(double)size-2.0, 2.0
+//						});
+//				square.setFill(critter.viewFillColor());
+//				square.setStroke(critter.viewOutlineColor());
+//				Main.grid.add(square, critter.x_coord, critter.y_coord);
 				s = new Rectangle(size - 4, size - 4);
 				s.setFill(critter.viewFillColor());
 				s.setStroke(critter.viewOutlineColor());
@@ -491,10 +501,10 @@ public abstract class Critter {
 			case TRIANGLE:
 				Polygon triangle = new Polygon();
 				triangle.getPoints().addAll(new Double[]{
-						(double)(size/2), 0.0,
-						0.0, (double)size,
-						(double)size, (double)size});
-				triangle.setFill(critter.viewOutlineColor());
+						(double)(size/2), 1.0,
+						1.0, (double)size-1.0,
+						(double)size-1.0, (double)size-1.0});
+				triangle.setFill(critter.viewFillColor());
 				triangle.setStroke(critter.viewOutlineColor());
 				Main.grid.add(triangle, critter.x_coord, critter.y_coord);
 				break;
@@ -506,7 +516,7 @@ public abstract class Critter {
 						1.0, (double)(size/2),
 						(double)(size/2), (double)size-1.0,
 						(double)size-1.0, (double)size/2 });
-				diamond.setFill(critter.viewOutlineColor());
+				diamond.setFill(critter.viewFillColor());
 				diamond.setStroke(critter.viewOutlineColor());
 				Main.grid.add(diamond, critter.x_coord, critter.y_coord);
 				break;

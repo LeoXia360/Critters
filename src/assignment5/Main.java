@@ -58,8 +58,8 @@ public class Main extends Application{
 
 		File[] files = new File("src/assignment5").listFiles();
 		//If this pathname does not denote a directory, then listFiles() returns null. 
-		System.out.println("Working Directory = " +
-	              System.getProperty("user.dir"));
+//		System.out.println("Working Directory = " +
+//	              System.getProperty("user.dir"));
 
 		for (File file : files) {
 		    if (file.isFile() && file.toString().endsWith(".java")) {
@@ -80,8 +80,6 @@ public class Main extends Application{
 		        
 		    }
 		}
-		System.out.println(critter_string);
-		System.out.println(results);
 	}
 	
 	
@@ -265,9 +263,7 @@ public class Main extends Application{
         	@Override
         	public void handle(ActionEvent event) {
         		try{
-        			System.out.println("Seed");
             		int amount = Integer.parseInt(seedAmount.getText());
-            		System.out.println(amount);
             		Critter.setSeed(amount);
         		}
         		catch (NumberFormatException e){
