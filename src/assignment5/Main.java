@@ -32,19 +32,26 @@ public class Main extends Application{
 	static Toolkit toolkit;
 	static ArrayList<Class> valid_critters = new ArrayList<Class>();
     private static String myPackage;	// package of Critter file.  Critter cannot be in default pkg.
+	static List<String> critter_string = new ArrayList<String>();
+
 
     static {
         myPackage = Critter.class.getPackage().toString().split(" ")[1];
     }
 	
+    
+    
+	public static void main(String[] args) throws ClassNotFoundException{ 
+		get_critter_list();
+		launch(args);
+	}
 	
 	
-	
-	public static void main(String[] args) throws ClassNotFoundException, InvalidCritterException { 
-		//System.out.println(Critter.class.getPackage().getName());
-		//List<Class<?>> cls = ClassFinder.find("assignment5");		
-		//System.out.println(cls);
-
+	/**
+	 * Returns the list of critters in the working directory
+	 * 
+	 */
+	public static void get_critter_list(){
 		
 		List<String> results = new ArrayList<String>();
 		List<Class> class_results = new ArrayList<Class>();
@@ -57,18 +64,24 @@ public class Main extends Application{
 		for (File file : files) {
 		    if (file.isFile() && file.toString().endsWith(".java")) {
 		        results.add(file.getName().substring(0, file.getName().indexOf(".")));
-		        //System.out.println(file.getName().substring(0, file.getName().indexOf(".")));
+		        String cls = file.getName().substring(0,file.getName().indexOf('.'));
 		        
-		        //something is wrong with my class path name
-		        Class<?> c = Class.forName(myPackage + "." + file.getName());
-		        System.out.println(c.getSuperclass());
-		        System.out.println(c);
+		        try{
+		        	Class<?> c = Class.forName(myPackage + "." +  cls);
+			        String super_class = c.getSuperclass().getName().substring(c.getSuperclass().getName().indexOf('.') + 1);
+			        if(!cls.equals("Header") && super_class.equals("Critter")){
+			        	class_results.add(c);
+			        	critter_string.add(c.getName().substring(c.getName().indexOf('.') + 1));
+			        }
+		        }
+		        catch (ClassNotFoundException e){
+		        	//do nothing
+		        }
+		        
 		    }
 		}
-		System.out.println(results);
-		
-		
-		//launch(args);
+		//System.out.println(critter_string);
+		//System.out.println(results);
 	}
 	
 	
