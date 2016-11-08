@@ -61,6 +61,8 @@ public abstract class Critter {
 		if(steps){num_steps = 2;}
 		int looking_x = this.x_coord;
 		int looking_y = this.y_coord;
+		//always execute this segment 
+		this.energy -= Params.look_energy_cost;
 		
 		//adding to the x and y coord 
 		switch (direction){
