@@ -34,6 +34,7 @@ public class Main extends Application{
 	static ArrayList<Class> valid_critters = new ArrayList<Class>();
     private static String myPackage;	// package of Critter file.  Critter cannot be in default pkg.
 	static List<String> critter_string = new ArrayList<String>();
+	static List<Critter> critter_critter = new ArrayList<Critter>();
 	static int size = 20;
 	Thread animationOfGrid;
 	Button clearButton;
@@ -48,6 +49,8 @@ public class Main extends Application{
     
 	public static void main(String[] args) throws ClassNotFoundException{ 
 		get_critter_list();
+		Craig cc = new Craig();
+		System.out.println(cc.getClass().getName().substring(cc.getClass().getName().indexOf('.') + 1));
 		launch(args);
 	}
 	

@@ -1,5 +1,7 @@
 package assignment5;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javafx.application.Application;
@@ -579,7 +581,28 @@ public abstract class Critter {
 		return null;
 	}
 	
-	public static void runStats(List<Critter> critters) {}
+	public static void runStats(List<String> critters) {
+		Main.get_critter_list();
+		ArrayList<Integer> count = new ArrayList<Integer>();
+		for(String c: critters){
+			for(Critter cp: population){
+				int current = 0;
+				if (c.equals(cp.getClass().getName().substring(cp.getClass().getName().indexOf('.') + 1))){
+					current++;
+				}
+				count.add(current);
+			}
+		}
+		
+		Iterator<String> c1 = critters.iterator();
+		Iterator<Integer> c2 = count.iterator();
+		
+		while(c1.hasNext() && c2.hasNext()){
+			System.out.println(c1.next() + ": " + c2.next());
+		}
+		
+	
+	}
 	
 	/* the TestCritter class allows some critters to "cheat". If you want to 
 	 * create tests of your Critter model, you can create subclasses of this class
