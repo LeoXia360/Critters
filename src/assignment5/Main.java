@@ -312,10 +312,10 @@ public class Main extends Application{
         				public void run() { 
         					try { 
         						while (true) { 
-        							Critter.worldTimeStep();
         							Platform.runLater(new Runnable() { // Run from JavaFX GUI 
         								@Override 
         								public void run() { 
+                							Critter.worldTimeStep();
         									Critter.displayWorld(); 
         								} 
         							}); 
@@ -329,14 +329,15 @@ public class Main extends Application{
         			});
         			animation = animation.replace("x", "");
         			animationSpeed = Integer.parseInt(animation);
-        			critterButton.setDisable(true);
-        			critterComboBox.setDisable(true);
-        			animationSpeedBox.setDisable(true);
-        			singleButton.setDisable(true);
-        			multipleButton.setDisable(true);
-        			seedButton.setDisable(true);
-//        			stopButton.setDisable(false);
-        			clearButton.setDisable(true);
+//        			critterButton.setDisable(true);
+//        			critterComboBox.setDisable(true);
+//        			animationSpeedBox.setDisable(true);
+//        			singleButton.setDisable(true);
+//        			multipleButton.setDisable(true);
+//        			seedButton.setDisable(true);
+//        			stopButton.setDisable(true);
+//        			startButton.setDisable(true);
+//        			clearButton.setDisable(true);
         			animationOfGrid.start();
         		}
         	}
@@ -360,18 +361,24 @@ public class Main extends Application{
         	public void handle(ActionEvent event) {
         		Critter.clearWorld();
         		Critter.displayWorld();
+//    			critterButton.setDisable(false);
+//    			critterComboBox.setDisable(false);
+//    			animationSpeedBox.setDisable(false);
+//    			singleButton.setDisable(false);
+//    			multipleButton.setDisable(false);
+//    			seedButton.setDisable(false);
 //        		primaryStage.setScene(scene);
 //        		primaryStage.setTitle("Grid");
         		primaryStage.show();
         	}
         });
         grid2.add(clearButton, 0, 31);
+//        stopButton.setDisable(true);
         
         Stage secondStage = new Stage();
 		secondStage.setTitle("Second Stage");
 		secondStage.setScene(new Scene(grid2, 600, 550));
 		secondStage.show();
 		
-		stopButton.setDisable(true);
 	}
 }
