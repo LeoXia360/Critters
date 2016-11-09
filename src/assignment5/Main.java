@@ -6,6 +6,7 @@ import javax.xml.ws.Response;
 
 import java.util.*;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -27,12 +28,16 @@ public class Main extends Application{
 	static GridPane grid = new GridPane();
 	//static GridPane grid2 = new GridPane();
 	static Timer time = new Timer();
-	static double animationSpeed = 1.0;
+	static int animationSpeed;
 	static boolean amRunning = false;
 	static Toolkit toolkit;
 	static ArrayList<Class> valid_critters = new ArrayList<Class>();
     private static String myPackage;	// package of Critter file.  Critter cannot be in default pkg.
 	static List<String> critter_string = new ArrayList<String>();
+	static int size = 20;
+	Thread animationOfGrid;
+	Button clearButton;
+	Button stopButton;
 
 
     static {
@@ -85,7 +90,7 @@ public class Main extends Application{
 	
 	@Override
 	public void start(Stage primaryStage) {
-		Scene scene = new Scene(grid, Params.world_width * Painter.size, Params.world_height * Painter.size);
+		Scene scene = new Scene(grid, Params.world_width * size, Params.world_height * size);
 		
 		try {
 			for(int i = 0; i < 2; i++){
@@ -97,7 +102,7 @@ public class Main extends Application{
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+        grid.setPadding(new Insets(10));
 		Critter.displayWorld();
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Grid");
@@ -187,8 +192,8 @@ public class Main extends Application{
             			}
                 		System.out.println(critterComboBox.getValue());
                 		Critter.displayWorld();
-                		primaryStage.setScene(scene);
-                		primaryStage.setTitle("Grid");
+//                		primaryStage.setScene(scene);
+//                		primaryStage.setTitle("Grid");
                 		primaryStage.show();
             		}
         		}
@@ -207,19 +212,19 @@ public class Main extends Application{
         grid2.add(critterButton, 3, 1);
         
         grid2.add(new Label("Time Step:"), 0, 7);
-        Button singleTimeStepButton = new Button();
-        singleTimeStepButton.setText("Single");
-        singleTimeStepButton.setOnAction(new EventHandler<ActionEvent>(){
+        Button singleButton = new Button();
+        singleButton.setText("Single");
+        singleButton.setOnAction(new EventHandler<ActionEvent>(){
         	@Override
         	public void handle(ActionEvent event) {
         		Critter.worldTimeStep();
         		Critter.displayWorld();
-        		primaryStage.setScene(scene);
-        		primaryStage.setTitle("Grid");
+//        		primaryStage.setScene(scene);
+//        		primaryStage.setTitle("Grid");
         		primaryStage.show();
         	}
         });
-        grid2.add(singleTimeStepButton, 0, 8);
+        grid2.add(singleButton, 0, 8);
         grid2.add(new Label("Amount"), 1, 8);
         TextField timeStepAmount = new TextField();
         grid2.add(timeStepAmount, 2, 8);
@@ -234,8 +239,8 @@ public class Main extends Application{
             			Critter.worldTimeStep();
             		}
             		Critter.displayWorld();
-            		primaryStage.setScene(scene);
-            		primaryStage.setTitle("Grid");
+//            		primaryStage.setScene(scene);
+//            		primaryStage.setTitle("Grid");
             		primaryStage.show();
         		}
         		catch (NumberFormatException e){
@@ -290,9 +295,7 @@ public class Main extends Application{
         startButton.setOnAction(new EventHandler<ActionEvent>() {
         	@Override
         	public void handle(ActionEvent event) {
-        		System.out.println("Start");
         		String animation = (String)animationSpeedBox.getValue();
-        		System.out.println(animation);
         		if (animation == null){
         			StackPane pane6 = new StackPane();
         			Label animationError = new Label("Animation speed has not been selected");
@@ -303,6 +306,39 @@ public class Main extends Application{
         			animationErrorStage.setScene(scene5);
         			animationErrorStage.show();
         		}
+        		else{
+        			animationOfGrid = new Thread(new Runnable() { 
+        				@Override 
+        				public void run() { 
+        					try { 
+        						while (true) { 
+        							Critter.worldTimeStep();
+        							Platform.runLater(new Runnable() { // Run from JavaFX GUI 
+        								@Override 
+        								public void run() { 
+        									Critter.displayWorld(); 
+        								} 
+        							}); 
+
+        							Thread.sleep(1000 / animationSpeed);
+        						}
+        					}
+        					catch (InterruptedException ex) {
+        					}
+        				}
+        			});
+        			animation = animation.replace("x", "");
+        			animationSpeed = Integer.parseInt(animation);
+        			critterButton.setDisable(true);
+        			critterComboBox.setDisable(true);
+        			animationSpeedBox.setDisable(true);
+        			singleButton.setDisable(true);
+        			multipleButton.setDisable(true);
+        			seedButton.setDisable(true);
+//        			stopButton.setDisable(false);
+        			clearButton.setDisable(true);
+        			animationOfGrid.start();
+        		}
         	}
         });
         grid2.add(startButton, 2, 23);
@@ -311,14 +347,31 @@ public class Main extends Application{
         stopButton.setOnAction(new EventHandler<ActionEvent>() {
         	@Override
         	public void handle(ActionEvent event) {
-        		System.out.println("Stop");
+        		animationOfGrid.stop();
         	}
         });
         grid2.add(stopButton, 3, 23);
         
+        grid2.add(new Label("Clear Board:"), 0, 30);
+        clearButton = new Button();
+        clearButton.setText("Clear");
+        clearButton.setOnAction(new EventHandler<ActionEvent>() {
+        	@Override
+        	public void handle(ActionEvent event) {
+        		Critter.clearWorld();
+        		Critter.displayWorld();
+//        		primaryStage.setScene(scene);
+//        		primaryStage.setTitle("Grid");
+        		primaryStage.show();
+        	}
+        });
+        grid2.add(clearButton, 0, 31);
+        
         Stage secondStage = new Stage();
 		secondStage.setTitle("Second Stage");
-		secondStage.setScene(new Scene(grid2, 600, 450));
+		secondStage.setScene(new Scene(grid2, 600, 550));
 		secondStage.show();
+		
+		stopButton.setDisable(true);
 	}
 }
