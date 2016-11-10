@@ -176,7 +176,6 @@ public class Main extends Application{
             			critterErrorStage.setScene(scene2);
             			critterErrorStage.show();
             			int amount = Integer.parseInt(critterAmount.getText());
-                		System.out.println(amount);
             		}
             		else{
             			/*
@@ -193,7 +192,6 @@ public class Main extends Application{
         						System.out.println("error processing: ");
         					}
             			}
-                		System.out.println(critterComboBox.getValue());
                 		Critter.displayWorld();
 //                		primaryStage.setScene(scene);
 //                		primaryStage.setTitle("Grid");

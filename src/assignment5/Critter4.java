@@ -1,5 +1,7 @@
 package assignment5;
 
+import assignment5.Critter.CritterShape;
+
 /**
  * Does not fight other critters when on the same x_coord and y_coord
  * Runs when fight is invoked
@@ -40,10 +42,10 @@ public class Critter4 extends Critter {
 	public static void runStats(java.util.List<Critter> kevins) {
 		
 	}
+	
+	@Override
+	public CritterShape viewShape() { return CritterShape.STAR; }
 
 	@Override
-	public CritterShape viewShape() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.SALMON; }
 }
