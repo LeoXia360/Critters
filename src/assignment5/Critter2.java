@@ -31,13 +31,14 @@ public class Critter2 extends Critter{
 	}
 
 	public boolean fight(String oponent) {
+		look(2, true);
 		return true;
 	}
 
 	@Override
 	public CritterShape viewShape() {
 		// TODO Auto-generated method stub
-		return null;
+		return CritterShape.DIAMOND;
 	}
 
 }

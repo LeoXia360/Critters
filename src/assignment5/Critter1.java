@@ -22,6 +22,7 @@ public class Critter1 extends Critter{
 	public void doTimeStep() {
 		// TODO Auto-generated method stub
 		// run in the direction selected
+		look(this.dir, true);
 		run(dir);
 		if (getEnergy() > 100){
 			Critter1 child = new Critter1();
