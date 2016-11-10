@@ -581,26 +581,27 @@ public abstract class Critter {
 		return null;
 	}
 	
-	public static void runStats(List<String> critters) {
+	public static void runStats(List<Critter> critters) {
 		Main.get_critter_list();
+		
 		ArrayList<Integer> count = new ArrayList<Integer>();
-		for(String c: critters){
+		for(Critter c: critters){
 			for(Critter cp: population){
 				int current = 0;
-				if (c.equals(cp.getClass().getName().substring(cp.getClass().getName().indexOf('.') + 1))){
+				if (c.equals(cp)){
 					current++;
 				}
 				count.add(current);
 			}
 		}
 		
-		Iterator<String> c1 = critters.iterator();
+		Iterator<Critter> c1 = critters.iterator();
 		Iterator<Integer> c2 = count.iterator();
 		
 		while(c1.hasNext() && c2.hasNext()){
+			//need to reroute this to GUI output
 			System.out.println(c1.next() + ": " + c2.next());
 		}
-		
 	
 	}
 	
