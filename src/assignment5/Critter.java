@@ -524,16 +524,17 @@ public abstract class Critter {
 			case STAR:
 				Polygon star = new Polygon();
 				star.getPoints().addAll(new Double[]{
-						(double)(size/2), 0.0,
-						(double)(size/4), (double)(size/5),
-//						0.0, (double)(size/5),
-						(double)(size/4), (double)(size/5)*2,
-//						0.0, (double)size,
-//						(double)(size/2), (double)(size/5)*3,
-//						(double)size, (double)size,
-						(double)(size/4)*2, (double)(size/5)*2,
-//						(double)size, (double)(size/5),
-						(double)(size/4)*2, (double)(size/5)});
+						(double)(size/2)-(size/size), 1.0,
+						(double)(size/2)-(size/4), (double)(size/4),
+						1.0, (double)(size/4),
+						(double)(size/2)-(size/4), (double)(size/2),
+						1.0, (double)size-1,
+						(double)(size/2)- (size/size), (double)(size/4)*3,
+						(double)size-1, (double)size-1,
+						(double)(size/2)+(size/4), (double)(size/2),
+						(double)size-1, (double)(size/4),
+						(double)(size/4)*3, (double)(size/4)
+				});
 				star.setFill(critter.viewOutlineColor());
 				star.setStroke(critter.viewOutlineColor());
 				Main.grid.add(star, critter.x_coord, critter.y_coord);
