@@ -138,7 +138,7 @@ public class Main extends Application{
         
         Stage thirdStage = new Stage();
 		thirdStage.setTitle("Critter Stats");
-		thirdStage.setScene(new Scene(grid3, 400, 400));
+		thirdStage.setScene(new Scene(grid3, 450, 120));
 		thirdStage.show();
         
 		final ComboBox critterComboBox2 = new ComboBox();
@@ -148,40 +148,40 @@ public class Main extends Application{
 		grid3.add(new Label("Critter: "), 0, 0);
 		grid3.add(critterComboBox2, 0, 1);
 		Button statsButton = new Button();
-//        statsButton.setText("See Stats");
-//        statsButton.setOnAction(new EventHandler<ActionEvent>() {
-//        	@Override
-//        	public void handle(ActionEvent event) {
-//        		String critter2 = (String)critterComboBox2.getValue();
-//        		if (critter2 == null){
-//        			StackPane pane7 = new StackPane();
-//        			Label statsError = new Label("No critter has been selected");
-//        			pane7.getChildren().add(statsError);
-//        			Stage statsErrorStage = new Stage();
-//        			statsErrorStage.setTitle("Stats Error");
-//        			Scene scene5 = new Scene(pane7, 300, 50);
-//        			statsErrorStage.setScene(scene5);
-//        			statsErrorStage.show();
-//        		}
-//        		else{
-//        			try{
-//        				c = Class.forName(myPackage + "."+ critter2);
-//            			Class<?>[] types = {List.class};
-//            			l = Critter.getInstances(critter2);
-//            			m = c.getMethod("runStats", types);
-//            			String stats = (String) m.invoke(null, l);
-//            			statsOutput.setText(stats);
-//            			
-//            			thirdStage.show();
-//            			
-//        			}
-//        			catch(Exception e){
-//        				e.printStackTrace(System.out);
-//        			}
-//        		}
-//        	}
-//        });
-//        grid3.add(statsButton, 2, 1);
+        statsButton.setText("See Stats");
+        statsButton.setOnAction(new EventHandler<ActionEvent>() {
+        	@Override
+        	public void handle(ActionEvent event) {
+        		String critter2 = (String)critterComboBox2.getValue();
+        		if (critter2 == null){
+        			StackPane pane7 = new StackPane();
+        			Label statsError = new Label("No critter has been selected");
+        			pane7.getChildren().add(statsError);
+        			Stage statsErrorStage = new Stage();
+        			statsErrorStage.setTitle("Stats Error");
+        			Scene scene5 = new Scene(pane7, 300, 50);
+        			statsErrorStage.setScene(scene5);
+        			statsErrorStage.show();
+        		}
+        		else{
+        			try{
+        				c = Class.forName(myPackage + "."+ critter2);
+            			Class<?>[] types = {List.class};
+            			l = Critter.getInstances(critter2);
+            			m = c.getMethod("runStats", types);
+            			String stats = (String) m.invoke(null, l);
+            			statsOutput.setText(stats);
+            			
+            			thirdStage.show();
+            			
+        			}
+        			catch(Exception e){
+        				e.printStackTrace(System.out);
+        			}
+        		}
+        	}
+        });
+        grid3.add(statsButton, 2, 1);
         
 //		Timer time = new Timer();
 //		ScheduleTask st = new ScheduleTask();
