@@ -158,7 +158,7 @@ public abstract class Critter {
 	private int x_coord;
 	private int y_coord;
 	private boolean move;
-	private static int size = 18;
+	private static int size = Main.size - 2;
 	
 	/**
 	 * Method used for both run and walk
@@ -526,11 +526,11 @@ public abstract class Critter {
 			case STAR:
 				Polygon star = new Polygon();
 				star.getPoints().addAll(new Double[]{
-						(double)(size/2)-(size/size), 1.0,
+						(double)(size/2)-(size/size), 2.0,
 						(double)(size/2)-(size/4), (double)(size/4),
-						1.0, (double)(size/4),
+						2.0, (double)(size/4),
 						(double)(size/2)-(size/4), (double)(size/2),
-						1.0, (double)size-1,
+						2.0, (double)size-1,
 						(double)(size/2)- (size/size), (double)(size/4)*3,
 						(double)size-1, (double)size-1,
 						(double)(size/2)+(size/4), (double)(size/2),
@@ -583,27 +583,23 @@ public abstract class Critter {
 	}
 	
 	public static void runStats(List<Critter> critters) {
-		Main.get_critter_list();
-		
-		ArrayList<Integer> count = new ArrayList<Integer>();
-		for(Critter c: critters){
-			for(Critter cp: population){
-				int current = 0;
-				if (c.equals(cp)){
-					current++;
-				}
-				count.add(current);
+		System.out.print("" + critters.size() + " critters as follows -- ");
+		java.util.Map<String, Integer> critter_count = new java.util.HashMap<String, Integer>();
+		for (Critter crit : critters) {
+			String crit_string = crit.toString();
+			Integer old_count = critter_count.get(crit_string);
+			if (old_count == null) {
+				critter_count.put(crit_string,  1);
+			} else {
+				critter_count.put(crit_string, old_count.intValue() + 1);
 			}
 		}
-		
-		Iterator<Critter> c1 = critters.iterator();
-		Iterator<Integer> c2 = count.iterator();
-		
-		while(c1.hasNext() && c2.hasNext()){
-			//need to reroute this to GUI output
-			System.out.println(c1.next() + ": " + c2.next());
+		String prefix = "";
+		for (String s : critter_count.keySet()) {
+			System.out.print(prefix + s + ":" + critter_count.get(s));
+			prefix = ", ";
 		}
-	
+		System.out.println();		
 	}
 	
 	/* the TestCritter class allows some critters to "cheat". If you want to 

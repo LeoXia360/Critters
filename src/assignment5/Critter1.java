@@ -43,4 +43,7 @@ public class Critter1 extends Critter{
 		
 		return CritterShape.SQUARE;
 	}
+	
+	@Override
+	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.PINK; }
 }

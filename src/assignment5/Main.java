@@ -18,10 +18,21 @@ import javafx.stage.Stage;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.animation.AnimationTimer;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import javax.xml.ws.Response;
+
+import java.io.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.*;
 
 public class Main extends Application{
 
@@ -39,6 +50,9 @@ public class Main extends Application{
 	Thread animationOfGrid;
 	Button clearButton;
 	Button stopButton;
+	Class<?> c;
+	List<Critter> l;
+	Method m;
 
 
     static {
@@ -50,7 +64,7 @@ public class Main extends Application{
 	public static void main(String[] args) throws ClassNotFoundException{ 
 		get_critter_list();
 		Craig cc = new Craig();
-		System.out.println(cc.getClass().getName().substring(cc.getClass().getName().indexOf('.') + 1));
+		//System.out.println(cc.getClass().getName().substring(cc.getClass().getName().indexOf('.') + 1));
 		launch(args);
 	}
 	
@@ -96,10 +110,7 @@ public class Main extends Application{
 		Scene scene = new Scene(grid, Params.world_width * size, Params.world_height * size);
 		
 		try {
-			for(int i = 0; i < 2; i++){
-	        	Critter.makeCritter("Craig");
-	        }
-	        for(int j = 0; j < 2; j++){
+	        for(int j = 0; j < 10; j++){
 	        	Critter.makeCritter("Algae");
 	        }
 		}catch (Exception e) {
@@ -377,9 +388,66 @@ public class Main extends Application{
 //        stopButton.setDisable(true);
         
         Stage secondStage = new Stage();
-		secondStage.setTitle("Second Stage");
+		secondStage.setTitle("Controller");
 		secondStage.setScene(new Scene(grid2, 600, 550));
 		secondStage.show();
 		
+		GridPane grid3 = new GridPane();
+        grid3.setHgap(20);
+        grid3.setVgap(10);
+        grid3.setPadding(new Insets(10));
+        
+		final ComboBox critterComboBox2 = new ComboBox();
+		critterComboBox2.getItems().addAll(
+			critter_string
+		);
+		grid3.add(new Label("Critter: "), 0, 0);
+		grid3.add(critterComboBox2, 0, 1);
+		Button statsButton = new Button();
+        statsButton.setText("See Stats");
+        statsButton.setOnAction(new EventHandler<ActionEvent>() {
+        	@Override
+        	public void handle(ActionEvent event) {
+        		String critter = (String)critterComboBox2.getValue();
+        		if (critter == null){
+        			StackPane pane7 = new StackPane();
+        			Label statsError = new Label("No critter has been selected");
+        			pane7.getChildren().add(statsError);
+        			Stage statsErrorStage = new Stage();
+        			statsErrorStage.setTitle("Stats Error");
+        			Scene scene5 = new Scene(pane7, 300, 50);
+        			statsErrorStage.setScene(scene5);
+        			statsErrorStage.show();
+        		}
+        		else{
+        			try{
+            			List<Critter> c = new ArrayList<Critter>();
+            			c = Critter.getInstances("Craig");
+            			//Critter.runStats(c);
+        				
+//        				c = Class.forName(myPackage + "."+ critter);
+//        				System.out.println(c);
+//            			Class<?>[] types = {List.class};
+//            			l = Critter.getInstances(critter);
+//            			System.out.println(Critter.getInstances(critter));
+//            			System.out.println(l);
+//            			m = c.getMethod("runStats", types);
+//            			System.out.println(m);
+//      
+//            			m.invoke(null, l);
+            			System.out.println("working");
+        			}
+        			catch(Exception e){
+        				e.printStackTrace(System.out);
+        			}
+        		}
+        	}
+        });
+        grid3.add(statsButton, 2, 1);
+       	
+		Stage thirdStage = new Stage();
+		thirdStage.setTitle("Critter Stats");
+		thirdStage.setScene(new Scene(grid3, 400, 400));
+		thirdStage.show();
 	}
 }

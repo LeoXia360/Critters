@@ -40,5 +40,8 @@ public class Critter2 extends Critter{
 		// TODO Auto-generated method stub
 		return CritterShape.DIAMOND;
 	}
+	
+	@Override
+	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.PURPLE; }
 
 }

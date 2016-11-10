@@ -41,4 +41,7 @@ public class Critter3 extends Critter {
 		// TODO Auto-generated method stub
 		return CritterShape.CIRCLE;
 	}
+	
+	@Override
+	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.ORANGE; }
 }
