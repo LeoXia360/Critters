@@ -31,10 +31,6 @@ public class Critter3 extends Critter {
 	public boolean fight(String oponent) {
 		return true;
 	}
-	
-	public static void runStats(java.util.List<Critter> kevins) {
-		
-	}
 
 	@Override
 	public CritterShape viewShape() {

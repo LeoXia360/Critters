@@ -39,10 +39,6 @@ public class Critter4 extends Critter {
 		return false;
 	}
 	
-	public static void runStats(java.util.List<Critter> kevins) {
-		
-	}
-	
 	@Override
 	public CritterShape viewShape() { return CritterShape.STAR; }
 

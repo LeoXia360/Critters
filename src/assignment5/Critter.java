@@ -579,11 +579,39 @@ public abstract class Critter {
 	}
 	
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
-		return null;
+		List<Critter> result = new java.util.ArrayList<Critter>();
+		String c = null;
+		try {
+			Class<?> createCritter = Class.forName(myPackage + "." + critter_class_name);
+			Constructor<?> createConstructor = createCritter.getConstructor();
+			Critter newCritter = (Critter) createConstructor.newInstance();
+			c = newCritter.toString();
+
+		} catch (ClassNotFoundException e) {
+			throw new InvalidCritterException(critter_class_name);
+		} catch (Exception e){
+			//do nothing
+		}
+		// add all critters from population
+		for(Critter critter: population){
+			if (c.equals(critter.toString())){
+				result.add(critter);
+			}
+			
+		}
+		// add all critters from babies
+		for(Critter critter: babies){
+			if(c.equals(critter.toString())){
+				result.add(critter);
+			}
+		}
+	
+		return result;
 	}
 	
-	public static void runStats(List<Critter> critters) {
-		System.out.print("" + critters.size() + " critters as follows -- ");
+	public static String runStats(List<Critter> critters) {
+		String one = ("" + critters.size() + " critters as follows -- ");
+		String two = "";
 		java.util.Map<String, Integer> critter_count = new java.util.HashMap<String, Integer>();
 		for (Critter crit : critters) {
 			String crit_string = crit.toString();
@@ -596,10 +624,10 @@ public abstract class Critter {
 		}
 		String prefix = "";
 		for (String s : critter_count.keySet()) {
-			System.out.print(prefix + s + ":" + critter_count.get(s));
+			two = (prefix + s + ":" + critter_count.get(s));
 			prefix = ", ";
 		}
-		System.out.println();		
+		return (one + two);		
 	}
 	
 	/* the TestCritter class allows some critters to "cheat". If you want to 

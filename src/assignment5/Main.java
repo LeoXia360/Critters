@@ -53,6 +53,7 @@ public class Main extends Application{
 	Class<?> c;
 	List<Critter> l;
 	Method m;
+	Label statsOutput = new Label ("");
 
 
     static {
@@ -122,6 +123,66 @@ public class Main extends Application{
 		primaryStage.setTitle("Grid");
 		primaryStage.show();
 		
+		GridPane grid2 = new GridPane();
+        grid2.setHgap(20);
+        grid2.setVgap(10);
+        grid2.setPadding(new Insets(10));
+		
+		GridPane grid3 = new GridPane();
+        grid3.setHgap(20);
+        grid3.setVgap(10);
+        grid3.setPadding(new Insets(10));
+        StackPane forStats = new StackPane();
+        forStats.getChildren().add(statsOutput);
+        grid3.add(forStats, 0, 2);
+        
+        Stage thirdStage = new Stage();
+		thirdStage.setTitle("Critter Stats");
+		thirdStage.setScene(new Scene(grid3, 400, 400));
+		thirdStage.show();
+        
+		final ComboBox critterComboBox2 = new ComboBox();
+		critterComboBox2.getItems().addAll(
+			critter_string
+		);
+		grid3.add(new Label("Critter: "), 0, 0);
+		grid3.add(critterComboBox2, 0, 1);
+		Button statsButton = new Button();
+        statsButton.setText("See Stats");
+        statsButton.setOnAction(new EventHandler<ActionEvent>() {
+        	@Override
+        	public void handle(ActionEvent event) {
+        		String critter2 = (String)critterComboBox2.getValue();
+        		if (critter2 == null){
+        			StackPane pane7 = new StackPane();
+        			Label statsError = new Label("No critter has been selected");
+        			pane7.getChildren().add(statsError);
+        			Stage statsErrorStage = new Stage();
+        			statsErrorStage.setTitle("Stats Error");
+        			Scene scene5 = new Scene(pane7, 300, 50);
+        			statsErrorStage.setScene(scene5);
+        			statsErrorStage.show();
+        		}
+        		else{
+        			try{
+        				c = Class.forName(myPackage + "."+ critter2);
+            			Class<?>[] types = {List.class};
+            			l = Critter.getInstances(critter2);
+            			m = c.getMethod("runStats", types);
+            			String stats = (String) m.invoke(null, l);
+            			statsOutput.setText(stats);
+            			
+            			thirdStage.show();
+            			
+        			}
+        			catch(Exception e){
+        				e.printStackTrace(System.out);
+        			}
+        		}
+        	}
+        });
+        grid3.add(statsButton, 2, 1);
+        
 //		Timer time = new Timer();
 //		ScheduleTask st = new ScheduleTask();
 //		time.schedule(st, 0, 1000);
@@ -138,10 +199,6 @@ public class Main extends Application{
 //			}
 //		}.start();
 		
-        GridPane grid2 = new GridPane();
-        grid2.setHgap(20);
-        grid2.setVgap(10);
-        grid2.setPadding(new Insets(10));
 //        ColumnConstraints c1 = new ColumnConstraints();
 //        c1.setPercentWidth(25);
 //        ColumnConstraints c2 = new ColumnConstraints();
@@ -207,6 +264,22 @@ public class Main extends Application{
 //                		primaryStage.setScene(scene);
 //                		primaryStage.setTitle("Grid");
                 		primaryStage.show();
+                		try{
+                			String critter2 = (String)critterComboBox2.getValue();
+                			if (critter2 != null){
+                				c = Class.forName(myPackage + "."+ critter2);
+                    			Class<?>[] types = {List.class};
+                    			l = Critter.getInstances(critter2);
+                    			m = c.getMethod("runStats", types);
+                    			String stats = (String) m.invoke(null, l);
+                    			statsOutput.setText(stats);
+                    			
+                    			thirdStage.show();
+                			}
+            			}
+            			catch(Exception e){
+            				e.printStackTrace(System.out);
+            			}
             		}
         		}
         		catch (NumberFormatException e){
@@ -234,6 +307,22 @@ public class Main extends Application{
 //        		primaryStage.setScene(scene);
 //        		primaryStage.setTitle("Grid");
         		primaryStage.show();
+        		try{
+        			String critter2 = (String)critterComboBox2.getValue();
+        			if (critter2 != null){
+        				c = Class.forName(myPackage + "."+ critter2);
+            			Class<?>[] types = {List.class};
+            			l = Critter.getInstances(critter2);
+            			m = c.getMethod("runStats", types);
+            			String stats = (String) m.invoke(null, l);
+            			statsOutput.setText(stats);
+            			
+            			thirdStage.show();
+        			}
+    			}
+    			catch(Exception e){
+    				e.printStackTrace(System.out);
+    			}
         	}
         });
         grid2.add(singleButton, 0, 8);
@@ -254,6 +343,22 @@ public class Main extends Application{
 //            		primaryStage.setScene(scene);
 //            		primaryStage.setTitle("Grid");
             		primaryStage.show();
+            		try{
+            			String critter2 = (String)critterComboBox2.getValue();
+            			if (critter2 != null){
+            				c = Class.forName(myPackage + "."+ critter2);
+                			Class<?>[] types = {List.class};
+                			l = Critter.getInstances(critter2);
+                			m = c.getMethod("runStats", types);
+                			String stats = (String) m.invoke(null, l);
+                			statsOutput.setText(stats);
+                			
+                			thirdStage.show();
+            			}
+        			}
+        			catch(Exception e){
+        				e.printStackTrace(System.out);
+        			}
         		}
         		catch (NumberFormatException e){
         			StackPane pane4 = new StackPane();
@@ -329,6 +434,22 @@ public class Main extends Application{
         								public void run() { 
                 							Critter.worldTimeStep();
         									Critter.displayWorld(); 
+        									try{
+        			                			String critter2 = (String)critterComboBox2.getValue();
+        			                			if (critter2 != null){
+        			                				c = Class.forName(myPackage + "."+ critter2);
+        			                    			Class<?>[] types = {List.class};
+        			                    			l = Critter.getInstances(critter2);
+        			                    			m = c.getMethod("runStats", types);
+        			                    			String stats = (String) m.invoke(null, l);
+        			                    			statsOutput.setText(stats);
+        			                    			
+        			                    			thirdStage.show();
+        			                			}
+        			            			}
+        			            			catch(Exception e){
+        			            				e.printStackTrace(System.out);
+        			            			}
         								} 
         							}); 
 
@@ -391,63 +512,8 @@ public class Main extends Application{
 		secondStage.setTitle("Controller");
 		secondStage.setScene(new Scene(grid2, 600, 550));
 		secondStage.show();
-		
-		GridPane grid3 = new GridPane();
-        grid3.setHgap(20);
-        grid3.setVgap(10);
-        grid3.setPadding(new Insets(10));
-        
-		final ComboBox critterComboBox2 = new ComboBox();
-		critterComboBox2.getItems().addAll(
-			critter_string
-		);
-		grid3.add(new Label("Critter: "), 0, 0);
-		grid3.add(critterComboBox2, 0, 1);
-		Button statsButton = new Button();
-        statsButton.setText("See Stats");
-        statsButton.setOnAction(new EventHandler<ActionEvent>() {
-        	@Override
-        	public void handle(ActionEvent event) {
-        		String critter = (String)critterComboBox2.getValue();
-        		if (critter == null){
-        			StackPane pane7 = new StackPane();
-        			Label statsError = new Label("No critter has been selected");
-        			pane7.getChildren().add(statsError);
-        			Stage statsErrorStage = new Stage();
-        			statsErrorStage.setTitle("Stats Error");
-        			Scene scene5 = new Scene(pane7, 300, 50);
-        			statsErrorStage.setScene(scene5);
-        			statsErrorStage.show();
-        		}
-        		else{
-        			try{
-            			List<Critter> c = new ArrayList<Critter>();
-            			c = Critter.getInstances("Craig");
-            			//Critter.runStats(c);
-        				
-//        				c = Class.forName(myPackage + "."+ critter);
-//        				System.out.println(c);
-//            			Class<?>[] types = {List.class};
-//            			l = Critter.getInstances(critter);
-//            			System.out.println(Critter.getInstances(critter));
-//            			System.out.println(l);
-//            			m = c.getMethod("runStats", types);
-//            			System.out.println(m);
-//      
-//            			m.invoke(null, l);
-            			System.out.println("working");
-        			}
-        			catch(Exception e){
-        				e.printStackTrace(System.out);
-        			}
-        		}
-        	}
-        });
-        grid3.add(statsButton, 2, 1);
+       
        	
-		Stage thirdStage = new Stage();
-		thirdStage.setTitle("Critter Stats");
-		thirdStage.setScene(new Scene(grid3, 400, 400));
-		thirdStage.show();
+        
 	}
 }
